@@ -138,14 +138,14 @@
         gap: 12px;
         width: 100%;
         padding: 10px 12px;
-        border: 1px solid var(--border);
+        border: none;
         border-radius: 10px;
-        background: var(--surface);
+        background: transparent;
         color: var(--text-muted);
         cursor: pointer;
         font-size: 14px;
         font-weight: 500;
-        transition: background 0.15s ease, color 0.15s ease, border-color 0.3s ease;
+        transition: background 0.15s ease, color 0.15s ease;
       }
 
       .minimize-btn:hover {
@@ -210,14 +210,14 @@
         gap: 12px;
         width: 100%;
         padding: 10px 12px;
-        border: 1px solid var(--border);
+        border: none;
         border-radius: 10px;
-        background: var(--surface);
+        background: transparent;
         color: var(--text-muted);
         cursor: pointer;
         font-size: 14px;
         font-weight: 500;
-        transition: background 0.15s ease, color 0.15s ease, border-color 0.3s ease;
+        transition: background 0.15s ease, color 0.15s ease;
       }
 
       .theme-btn:hover {
@@ -336,13 +336,39 @@
 
       .menu-btn {
         display: none;
-        background: var(--surface);
-        border: 1px solid var(--border);
-        color: var(--text);
+        background: transparent;
+        border: none;
+        color: var(--text-muted);
         border-radius: 9px;
         padding: 8px 10px;
         cursor: pointer;
+        transition: background 0.15s ease, color 0.15s ease;
       }
+
+      .menu-btn:hover {
+        background: var(--hover);
+        color: var(--text);
+      }
+
+      .menu-btn svg {
+        width: 20px;
+        height: 20px;
+        display: block;
+      }
+
+      .menu-btn svg path {
+        stroke: currentColor;
+        fill: none;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+      }
+
+      .menu-btn svg g:first-child path { transform-origin: 12px 6px; }
+      .menu-btn svg > path { transform-origin: 12px 12px; }
+      .menu-btn svg g:last-child path { transform-origin: 12px 18px; }
+
+      .menu-btn:hover svg g:first-child path { transform: translateY(6px) rotate(45deg); }
+      .menu-btn:hover svg > path { opacity: 0; }
+      .menu-btn:hover svg g:last-child path { transform: translateY(-6px) rotate(-45deg); }
 
       /* ---------- Loading screen (this page turns like a book) ---------- */
       .loader {
@@ -490,7 +516,7 @@
           <span class="label" id="themeLabel">Dark brown</span>
         </button>
         <button class="minimize-btn" id="minBtn" aria-label="Minimize sidebar">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 17l-5-5 5-5M18 17l-5-5 5-5"/></svg>
+          <svg viewBox="0 0 16 16" fill="#99A1AF" height="12" stroke="null" stroke-width="1px" stroke-linecap="butt" stroke-linejoin="miter" stroke-dashoffset="0px" opacity="1" fill-opacity="1" stroke-opacity="1" font-family="calSansUI, &quot;calSansUI Fallback&quot;, sans-serif" font-size="16px" font-weight="400" text-anchor="start" dominant-baseline="auto" stop-color="#000000" stop-opacity="1" width="16"><path d="M4.177 7.823l2.396-2.396A.25.25 0 017 5.604v4.792a.25.25 0 01-.427.177L4.177 8.177a.25.25 0 010-.354z" fill="#99A1AF" stroke="null" stroke-width="1px" stroke-linecap="butt" stroke-linejoin="miter" stroke-dashoffset="0px" opacity="1" fill-opacity="1" stroke-opacity="1" font-family="calSansUI, &quot;calSansUI Fallback&quot;, sans-serif" font-size="16px" font-weight="400" text-anchor="start" dominant-baseline="auto" stop-color="#000000" stop-opacity="1"></path><path fill-rule="evenodd" d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v12.5A1.75 1.75 0 0114.25 16H1.75A1.75 1.75 0 010 14.25V1.75zm1.75-.25a.25.25 0 00-.25.25v12.5c0 .138.112.25.25.25H9.5v-13H1.75zm12.5 13H11v-13h3.25a.25.25 0 01.25.25v12.5a.25.25 0 01-.25.25z" fill="#99A1AF" stroke="null" stroke-width="1px" stroke-linecap="butt" stroke-linejoin="miter" stroke-dashoffset="0px" opacity="1" fill-opacity="1" stroke-opacity="1" font-family="calSansUI, &quot;calSansUI Fallback&quot;, sans-serif" font-size="16px" font-weight="400" text-anchor="start" dominant-baseline="auto" stop-color="#000000" stop-opacity="1"></path></svg>
           <span class="label">Minimize</span>
         </button>
       </div>
@@ -504,7 +530,7 @@
         </div>
         <div class="topbar-actions">
           <button class="menu-btn" id="menuBtn" aria-label="Open menu">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+            <svg viewBox="0 0 24 24" stroke="#FFFFFF" stroke-width="2px" stroke-linecap="round" height="24" fill="#000000" stroke-linejoin="miter" stroke-dashoffset="0px" opacity="1" fill-opacity="1" stroke-opacity="1" font-family="calSansUI, &quot;calSansUI Fallback&quot;, sans-serif" font-size="16px" font-weight="400" text-anchor="start" dominant-baseline="auto" stop-color="#000000" stop-opacity="1" width="24"><g fill="#000000" stroke="#FFFFFF" stroke-width="2px" stroke-linecap="round" stroke-linejoin="miter" stroke-dashoffset="0px" opacity="1" fill-opacity="1" stroke-opacity="1" font-family="calSansUI, &quot;calSansUI Fallback&quot;, sans-serif" font-size="16px" font-weight="400" text-anchor="start" dominant-baseline="auto" stop-color="#000000" stop-opacity="1"><path d="M4 6h16" fill="#000000" stroke="#FFFFFF" stroke-width="2px" stroke-linecap="round" stroke-linejoin="miter" stroke-dashoffset="0px" opacity="1" fill-opacity="1" stroke-opacity="1" font-family="calSansUI, &quot;calSansUI Fallback&quot;, sans-serif" font-size="16px" font-weight="400" text-anchor="start" dominant-baseline="auto" stop-color="#000000" stop-opacity="1"></path></g><path d="M4 12h16" fill="#000000" stroke="#FFFFFF" stroke-width="2px" stroke-linecap="round" stroke-linejoin="miter" stroke-dashoffset="0px" opacity="1" fill-opacity="1" stroke-opacity="1" font-family="calSansUI, &quot;calSansUI Fallback&quot;, sans-serif" font-size="16px" font-weight="400" text-anchor="start" dominant-baseline="auto" stop-color="#000000" stop-opacity="1"></path><g fill="#000000" stroke="#FFFFFF" stroke-width="2px" stroke-linecap="round" stroke-linejoin="miter" stroke-dashoffset="0px" opacity="1" fill-opacity="1" stroke-opacity="1" font-family="calSansUI, &quot;calSansUI Fallback&quot;, sans-serif" font-size="16px" font-weight="400" text-anchor="start" dominant-baseline="auto" stop-color="#000000" stop-opacity="1"><path d="M4 18h16" fill="#000000" stroke="#FFFFFF" stroke-width="2px" stroke-linecap="round" stroke-linejoin="miter" stroke-dashoffset="0px" opacity="1" fill-opacity="1" stroke-opacity="1" font-family="calSansUI, &quot;calSansUI Fallback&quot;, sans-serif" font-size="16px" font-weight="400" text-anchor="start" dominant-baseline="auto" stop-color="#000000" stop-opacity="1"></path></g></svg>
           </button>
         </div>
       </header>

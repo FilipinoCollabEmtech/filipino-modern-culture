@@ -414,20 +414,37 @@
       }
       .loader-video {
         width: min(380px, 58vw);
-        max-height: 40vh;
+        max-height: none;
         border-radius: 16px;
         object-fit: cover;
-        margin-top: 12vh;
+        margin-top: 0;
       }
       .loader-text {
-        font-size: 16px;
-        font-weight: 600;
-        letter-spacing: 0.3px;
-        color: #8a6a45;
-        min-height: 22px;
-        text-align: center;
-        margin-top: 4px;
-        animation: loaderPulse 1.2s ease-in-out infinite;
+	font-size: 16px;
+	font-weight: 600;
+	letter-spacing: 0.3px;
+	color: #8a6a45;
+	min-height: 22px;
+	text-align: center;
+	margin-top: -130px;
+	animation: loaderPulse 1.2s ease-in-out infinite;
+	}
+	.loader-video,
+	.loader-text {
+	position: relative;
+	top: 60px;
+	}
+      .loader-book {
+        width: 150px;
+        height: 150px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .loader-book svg {
+        width: 100%;
+        height: 100%;
       }
       .loader.turn {
         transform: perspective(1800px) rotateY(-172deg);
@@ -469,6 +486,7 @@
 
     <div class="loader" id="loader">
       <h1 class="loader-title">Filipino Modern</h1>
+      <div class="loader-book" id="bookAnim"></div>
       <video class="loader-video" src="loading.webm" autoplay muted loop playsinline></video>
       <div class="loader-text" id="loaderText">Loading history</div>
     </div>
@@ -552,11 +570,23 @@
       </section>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+    <script src="book.js"></script>
     <script>
       (function () {
         // Loading screen
         var loader = document.getElementById("loader");
         var loaderText = document.getElementById("loaderText");
+
+        if (window.bookAnimData && typeof lottie !== "undefined") {
+          lottie.loadAnimation({
+            container: document.getElementById("bookAnim"),
+            renderer: "svg",
+            loop: true,
+            autoplay: true,
+            animationData: window.bookAnimData
+          });
+        }
         var phrases = [
           "Loading history",
           "Loading filipino culture",

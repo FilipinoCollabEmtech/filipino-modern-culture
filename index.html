@@ -354,8 +354,8 @@
 
       .content {
         padding: 28px;
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        display: flex;
+        flex-direction: column;
         gap: 18px;
       }
 
@@ -381,6 +381,26 @@
         font-size: 13px;
         color: var(--text-muted);
         line-height: 1.5;
+      }
+
+      .topic h2 {
+        font-size: 18px;
+        margin: 4px 0 8px;
+      }
+      .topic h3 {
+        font-size: 15px;
+        margin-bottom: 8px;
+      }
+      .topic ul {
+        margin: 0;
+        padding-left: 18px;
+        color: var(--text-muted);
+        font-size: 13px;
+        line-height: 1.7;
+      }
+      .topic p {
+        color: var(--text-muted);
+        font-size: 13px;
       }
 
       .menu-btn {
@@ -625,8 +645,7 @@
     <div class="main">
       <header class="topbar">
         <div>
-          <h1>Dashboard</h1>
-          <p>A working archive of Filipino life — what we've kept, what we're making, and what we're still figuring out.</p>
+          <h1>Filipino Modern</h1>
         </div>
         <div class="topbar-actions">
           <button class="menu-btn" id="menuBtn" aria-label="Open menu">
@@ -636,14 +655,53 @@
       </header>
 
       <div class="hero">
-        <div class="hero-media">Hero image</div>
+        <div class="hero-media">Image</div>
       </div>
 
       <section class="content">
-        <div class="card"><div class="card-thumb">Image</div><h3>Bayanihan Builds</h3><p>Field notes from community repair workshops in Quezon and the Visayas — what got fixed, who showed up, and what we'd do differently next time.</p></div>
-        <div class="card"><div class="card-thumb">Image</div><h3>Oral History Recordings</h3><p>We sit with Manileño vendors and lolas, record their stories, and transcribe them into an open, searchable archive anyone can read.</p></div>
-        <div class="card"><div class="card-thumb">Image</div><h3>Notes from the Road</h3><p>Jeepney routes, karaoke theology, and the quiet politics of the parol — published whenever something worth saying actually shows up.</p></div>
-        <div class="card"><div class="card-thumb">Image</div><h3>Lola &amp; CapCut Nights</h3><p>A monthly potluck where grandmothers teach pancit and teenagers teach video editing. Come with one, leave with the other.</p></div>
+        <div class="card topic">
+          <h2>Title</h2>
+        </div>
+        <div class="card topic">
+          <h2>Introduction</h2>
+        </div>
+        <div class="card topic">
+          <div class="card-thumb">Image</div>
+          <h2>Section 1</h2>
+          <h3>Filipino Culture Online</h3>
+        </div>
+        <div class="card topic">
+          <div class="card-thumb">Image</div>
+          <h2>Section 2</h2>
+          <h3>Preserving &amp; Sharing Culture</h3>
+          <ul>
+            <li>Digital Preservation</li>
+            <li>Global Reach</li>
+            <li>Younger Generation</li>
+          </ul>
+        </div>
+        <div class="card topic">
+          <div class="card-thumb">Image</div>
+          <h2>Section 3</h2>
+          <h3>Benefits &amp; Challenges</h3>
+          <ul>
+            <li>Benefits</li>
+            <li>Challenges</li>
+            <li>Finding the Balance</li>
+          </ul>
+        </div>
+        <div class="card topic">
+          <h2>Call to Action / Reflection</h2>
+          <p>What can we do?</p>
+        </div>
+        <div class="card topic">
+          <h2>Useful Hyperlinks</h2>
+          <p>Explore Filipino Culture</p>
+        </div>
+        <div class="card topic">
+          <h2>References</h2>
+          <p>References</p>
+        </div>
       </section>
     </div>
 

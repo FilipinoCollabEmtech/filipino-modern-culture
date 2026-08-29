@@ -579,30 +579,26 @@
       }
       .loader-video {
         width: min(380px, 58vw);
+        height: auto;
         max-height: none;
         border-radius: 16px;
         object-fit: cover;
-        margin-top: 0;
+        margin: 0;
       }
       .loader-text {
-	font-size: 16px;
-	font-weight: 600;
-	letter-spacing: 0.3px;
-	color: #8a6a45;
-	min-height: 22px;
-	text-align: center;
-	margin-top: -130px;
-	animation: loaderPulse 1.2s ease-in-out infinite;
-	}
-	.loader-video,
-	.loader-text {
-	position: relative;
-	top: 60px;
-	}
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+        color: #8a6a45;
+        min-height: 22px;
+        text-align: center;
+        margin-top: 6px;
+        animation: loaderPulse 1.2s ease-in-out infinite;
+      }
       .loader-book {
-        width: 150px;
-        height: 150px;
-        margin: 0 auto;
+        width: 280px;
+        height: 200px;
+        margin: 0 auto 20px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -684,34 +680,34 @@
           <span class="nav-text">Introduction</span>
         </a>
 
-        <a class="nav-item toggle" href="#sec1" data-target="sec1" title="Filipino Culture Online">
+        <a class="nav-item toggle" href="#sec1" data-target="nav-sec1" title="Filipino Culture Online">
           <span class="nav-num">01</span>
           <span class="nav-text">Filipino Culture Online</span>
           <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
         </a>
-        <div class="nav-group" id="sec1">
+        <div class="nav-group" id="nav-sec1">
           <a class="nav-item nav-sub" href="#sec1" data-target="sec1"><span>Social Media &amp; Cultural Expression</span></a>
           <a class="nav-item nav-sub" href="#sec1" data-target="sec1"><span>Filipino Language Online</span></a>
           <a class="nav-item nav-sub" href="#sec1" data-target="sec1"><span>Filipino Communities</span></a>
         </div>
 
-        <a class="nav-item toggle" href="#sec2" data-target="sec2" title="Preserving &amp; Sharing Culture">
+        <a class="nav-item toggle" href="#sec2" data-target="nav-sec2" title="Preserving &amp; Sharing Culture">
           <span class="nav-num">02</span>
           <span class="nav-text">Preserving &amp; Sharing Culture</span>
           <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
         </a>
-        <div class="nav-group" id="sec2">
+        <div class="nav-group" id="nav-sec2">
           <a class="nav-item nav-sub" href="#sec2" data-target="sec2"><span>Digital Preservation</span></a>
           <a class="nav-item nav-sub" href="#sec2" data-target="sec2"><span>Global Reach</span></a>
           <a class="nav-item nav-sub" href="#sec2" data-target="sec2"><span>Younger Generation</span></a>
         </div>
 
-        <a class="nav-item toggle" href="#sec3" data-target="sec3" title="Benefits &amp; Challenges">
+        <a class="nav-item toggle" href="#sec3" data-target="nav-sec3" title="Benefits &amp; Challenges">
           <span class="nav-num">03</span>
           <span class="nav-text">Benefits &amp; Challenges</span>
           <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
         </a>
-        <div class="nav-group" id="sec3">
+        <div class="nav-group" id="nav-sec3">
           <a class="nav-item nav-sub" href="#sec3" data-target="sec3"><span>Benefits</span></a>
           <a class="nav-item nav-sub" href="#sec3" data-target="sec3"><span>Challenges</span></a>
           <a class="nav-item nav-sub" href="#sec3" data-target="sec3"><span>Finding the Balance</span></a>
@@ -822,41 +818,61 @@
         var loader = document.getElementById("loader");
         var loaderText = document.getElementById("loaderText");
 
-        // Always start at the very top with all sidebar sections OPEN
+        // ---------- INITIAL PAGE STATE ----------
         if ("scrollRestoration" in history) {
           history.scrollRestoration = "manual";
         }
 
+        if (window.location.hash) {
+          history.replaceState(
+            null,
+            "",
+            window.location.pathname + window.location.search
+          );
+        }
+
         function resetPagePosition() {
           window.scrollTo(0, 0);
+          document.documentElement.scrollTop = 0;
+          document.body.scrollTop = 0;
 
           var navEl = document.querySelector(".nav");
           if (navEl) navEl.scrollTop = 0;
 
-          document.querySelectorAll(".nav-group").forEach(function (g) {
-            g.classList.add("collapsed");
+          // Sections OPEN by default
+          document.querySelectorAll(".nav-group").forEach(function (group) {
+            group.classList.remove("collapsed");
           });
-
-          document.querySelectorAll(".nav-item.toggle").forEach(function (b) {
-            b.classList.add("collapsed");
+          document.querySelectorAll(".nav-item.toggle").forEach(function (button) {
+            button.classList.remove("collapsed");
           });
         }
 
         resetPagePosition();
         window.addEventListener("load", resetPagePosition);
         window.addEventListener("pageshow", resetPagePosition);
-        setTimeout(resetPagePosition, 50);
+        requestAnimationFrame(function () {
+          resetPagePosition();
+        });
+        setTimeout(resetPagePosition, 100);
         setTimeout(resetPagePosition, 500);
 
-        if (window.bookAnimData && typeof lottie !== "undefined") {
-          lottie.loadAnimation({
-            container: document.getElementById("bookAnim"),
-            renderer: "svg",
-            loop: true,
-            autoplay: true,
-            animationData: window.bookAnimData
-          });
+        function startBookAnimation() {
+          if (
+            window.bookAnimData &&
+            typeof lottie !== "undefined" &&
+            document.getElementById("bookAnim")
+          ) {
+            lottie.loadAnimation({
+              container: document.getElementById("bookAnim"),
+              renderer: "svg",
+              loop: true,
+              autoplay: true,
+              animationData: window.bookAnimData
+            });
+          }
         }
+        startBookAnimation();
 
         // Collapsible sidebar section sub-items
         document.querySelectorAll(".nav-item.toggle").forEach(function (btn) {
@@ -959,11 +975,13 @@
             e.preventDefault();
             target.scrollIntoView({ behavior: "smooth", block: "start" });
             setActive(target.id);
-            var grp = document.getElementById(target.id);
-            if (grp && grp.classList.contains("nav-group")) {
-              grp.classList.remove("collapsed");
-              var tog = document.querySelector('.nav-item.toggle[data-target="' + target.id + '"]');
-              if (tog) tog.classList.remove("collapsed");
+            if (!link.classList.contains("toggle")) {
+              var navGroup = document.getElementById("nav-" + target.id);
+              if (navGroup && navGroup.classList.contains("collapsed")) {
+                navGroup.classList.remove("collapsed");
+                var tog = document.querySelector('.nav-item.toggle[data-target="nav-' + target.id + '"]');
+                if (tog) tog.classList.remove("collapsed");
+              }
             }
           });
         });
@@ -974,7 +992,8 @@
 
         function setActive(id) {
           document.querySelectorAll(".nav-item").forEach(function (n) { n.classList.remove("active"); });
-          var el = document.querySelector('.nav-item[data-target="' + id + '"]:not(.nav-sub)');
+          var attr = (id === "sec1" || id === "sec2" || id === "sec3") ? "nav-" + id : id;
+          var el = document.querySelector('.nav-item[data-target="' + attr + '"]:not(.nav-sub)');
           if (el) el.classList.add("active");
         }
 

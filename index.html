@@ -634,6 +634,11 @@
         }
         .sidebar.open {
           transform: translateX(0);
+          width: 264px;
+        }
+        .sidebar.collapsed {
+          transform: translateX(0);
+          width: 76px;
         }
         .menu-btn {
           display: inline-flex;
@@ -938,11 +943,9 @@
         // Minimize / collapse sidebar
         var minBtn = document.getElementById("minBtn");
         minBtn.addEventListener("click", function () {
-          if (window.innerWidth <= 860) {
-            close();
-          } else {
-            sidebar.classList.toggle("collapsed");
-          }
+          sidebar.classList.toggle("collapsed");
+          sidebar.classList.remove("open");
+          scrim.classList.remove("show");
         });
 
         // Sidebar navigation: smooth scroll, active tracking, reading progress

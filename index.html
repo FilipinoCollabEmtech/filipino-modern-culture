@@ -760,11 +760,11 @@
           if (navEl) navEl.scrollTop = 0;
 
           document.querySelectorAll(".nav-group").forEach(function (g) {
-            g.classList.remove("collapsed");
+            g.classList.add("collapsed");
           });
 
           document.querySelectorAll(".nav-item.toggle").forEach(function (b) {
-            b.classList.remove("collapsed");
+            b.classList.add("collapsed");
           });
         }
 

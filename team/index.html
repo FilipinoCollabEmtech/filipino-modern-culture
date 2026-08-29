@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark-brown">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meet the Team of Filipino Culture in the digital age</title>
+    <style>
+      :root {
+        --bg: #2b211c;
+        --sidebar-bg: #241a15;
+        --surface: #34281f;
+        --surface-2: #3d2f24;
+        --text: #efe6dc;
+        --text-muted: #b09a86;
+        --border: #4a382c;
+        --accent: #d9a066;
+        --accent-strong: #c08457;
+      }
+      [data-theme="light-brown"] {
+        --bg: #f3e9dd;
+        --sidebar-bg: #ead9c6;
+        --surface: #fffaf3;
+        --surface-2: #f3e3d2;
+        --text: #2b211c;
+        --text-muted: #8a6a52;
+        --border: #d8c3ac;
+        --accent: #a86b3c;
+        --accent-strong: #8a552c;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 28px;
+        border-bottom: 1px solid var(--border);
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        color: var(--text);
+        font-size: 18px;
+        font-weight: 600;
+      }
+      .brand svg { width: 22px; height: 22px; color: var(--accent); }
+      .topbar-actions { display: flex; align-items: center; gap: 10px; }
+      .topbar-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 14px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: var(--surface-2);
+        color: var(--text);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+      }
+      .topbar-btn:hover { background: var(--accent); color: #1c140f; border-color: var(--accent); }
+      .topbar-btn svg { width: 18px; height: 18px; }
+
+      .hero {
+        text-align: center;
+        padding: 72px 24px 28px;
+        max-width: 720px;
+        margin: 0 auto;
+      }
+      .kicker {
+        font-size: 12px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--accent);
+        font-weight: 600;
+      }
+      .hero h1 {
+        font-size: clamp(34px, 6vw, 52px);
+        margin: 12px 0 10px;
+        line-height: 1.1;
+        letter-spacing: -0.5px;
+      }
+      .hero p {
+        color: var(--text-muted);
+        font-size: 17px;
+        margin: 0;
+      }
+
+      .team {
+        max-width: 1040px;
+        margin: 0 auto;
+        padding: 24px 28px 80px;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 22px;
+      }
+      .member {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 24px 22px;
+        text-align: center;
+        cursor: pointer;
+        transition: transform 0.15s ease, border-color 0.15s ease;
+      }
+      .member:hover { transform: translateY(-4px); border-color: var(--accent); }
+      .avatar {
+        position: relative;
+        overflow: hidden;
+        width: 92px;
+        height: 92px;
+        border-radius: 50%;
+        margin: 0 auto 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 30px;
+        font-weight: 700;
+        color: #1c140f;
+        background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+      }
+      .avatar img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+      .member h3 { margin: 0; font-size: 18px; }
+      .member .role {
+        margin: 4px 0 12px;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+      .member .bio { margin: 0 0 16px; font-size: 14px; color: var(--text-muted); line-height: 1.5; }
+      .socials { display: flex; justify-content: center; gap: 14px; }
+      .socials a {
+        font-size: 13px;
+        color: var(--text);
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+      }
+      .socials a:hover { border-color: var(--accent); color: var(--accent); }
+
+      .back {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--text-muted);
+        text-decoration: none;
+        font-size: 14px;
+        margin-top: 36px;
+      }
+      .back:hover { color: var(--accent); }
+
+      footer {
+        text-align: center;
+        padding: 28px;
+        color: var(--text-muted);
+        font-size: 13px;
+        border-top: 1px solid var(--border);
+      }
+
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.55);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        z-index: 100;
+      }
+      .modal-overlay[hidden] { display: none; }
+      .modal {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 34px 28px 30px;
+        max-width: 380px;
+        width: 100%;
+        text-align: center;
+        position: relative;
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+      }
+      .modal-close {
+        position: absolute;
+        top: 12px;
+        right: 14px;
+        background: transparent;
+        border: none;
+        color: var(--text-muted);
+        font-size: 26px;
+        line-height: 1;
+        cursor: pointer;
+      }
+      .modal-close:hover { color: var(--text); }
+      .modal-avatar {
+        position: relative;
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        margin: 0 auto 18px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 52px;
+        font-weight: 700;
+        color: #1c140f;
+        background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+      }
+      .modal-avatar img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .modal h2 { margin: 0; font-size: 22px; }
+      .modal-role {
+        margin: 6px 0 14px;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+      .modal-bio { margin: 0; font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="../home/">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        Filipino in Modern Times
+      </a>
+      <div class="topbar-actions">
+        <a class="topbar-btn" href="../home/">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+          <span>Back to site</span>
+        </a>
+      </div>
+    </header>
+
+    <section class="hero">
+      <p class="kicker">Filipino in Modern Times</p>
+      <h1>Meet the Team</h1>
+      <p>The people behind Filipino in Modern Times building a living archive of culture in the digital age.</p>
+    </section>
+
+    <main class="team">
+      <article class="member" data-img="../Designer.png">
+        <div class="avatar"><img src="../Designer.png" alt="Vallejos" onerror="this.style.display='none'">VA</div>
+        <h3>Vallejos</h3>
+        <p class="role">Designer</p>
+        <p class="bio">Shapes the visual language and editorial feel of Filipino in Modern Times from typography to the reading experience.</p>
+        <div class="socials">
+          <a href="#">Twitter</a>
+          <a href="#">Portfolio</a>
+        </div>
+      </article>
+
+      <article class="member" data-img="../Ledesma.png">
+        <div class="avatar"><img src="../Ledesma.png" alt="Ledesma" onerror="this.style.display='none'">LE</div>
+        <h3>Ledesma</h3>
+        <p class="role">Researcher</p>
+        <p class="bio">Curates sources and verifies cultural references so the archive stays accurate and respectful.</p>
+        <div class="socials">
+          <a href="#">Twitter</a>
+          <a href="#">GitHub</a>
+        </div>
+      </article>
+
+      <article class="member" data-img="../Pia.png">
+        <div class="avatar"><img src="../Pia.png" alt="Pia" onerror="this.style.display='none'">PI</div>
+        <h3>Pia</h3>
+        <p class="role">Writer</p>
+        <p class="bio">Turns research into clear, warm storytelling for each section of the site.</p>
+        <div class="socials">
+          <a href="#">Twitter</a>
+          <a href="#">Blog</a>
+        </div>
+      </article>
+
+      <article class="member" data-img="../Tabay.png">
+        <div class="avatar"><img src="../Tabay.png" alt="Tabay" onerror="this.style.display='none'">TA</div>
+        <h3>Tabay</h3>
+        <p class="role">Developer</p>
+        <p class="bio">Builds and maintains the site, keeping the reading experience smooth across devices.</p>
+        <div class="socials">
+          <a href="#">GitHub</a>
+          <a href="#">Site</a>
+        </div>
+      </article>
+
+      <article class="member" data-img="../Balazo.png">
+        <div class="avatar"><img src="../Balazo.png" alt="Balazo" onerror="this.style.display='none'">BA</div>
+        <h3>Balazo</h3>
+        <p class="role">Developer</p>
+        <p class="bio">Implements features and keeps the publication fast, accessible, and reliable.</p>
+        <div class="socials">
+          <a href="#">GitHub</a>
+          <a href="#">Email</a>
+        </div>
+      </article>
+
+      <article class="member" data-img="../Limchiu.png">
+        <div class="avatar"><img src="../Limchiu.png" alt="Limchiu" onerror="this.style.display='none'">LI</div>
+        <h3>Limchiu</h3>
+        <p class="role">Presenter</p>
+        <p class="bio">Brings the project to life on stage and in talks, sharing Filipino in Modern Times with new audiences.</p>
+        <div class="socials">
+          <a href="#">Twitter</a>
+          <a href="#">LinkedIn</a>
+        </div>
+      </article>
+    </main>
+
+    <footer>
+      <a class="back" href="../home/">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        Back to Filipino in Modern Times
+      </a>
+      <p style="margin-top:14px;">© Filipino in Modern Times a project documenting Filipino culture in the digital age.</p>
+    </footer>
+
+    <div class="modal-overlay" id="memberModal" hidden>
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalName">
+        <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+        <div class="modal-avatar"><img id="modalImg" src="" alt="" /><span id="modalInitials"></span></div>
+        <h2 id="modalName"></h2>
+        <p class="modal-role" id="modalRole"></p>
+        <p class="modal-bio" id="modalBio"></p>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        var modal = document.getElementById("memberModal");
+        var modalImg = document.getElementById("modalImg");
+        var modalInitials = document.getElementById("modalInitials");
+        var modalName = document.getElementById("modalName");
+        var modalRole = document.getElementById("modalRole");
+        var modalBio = document.getElementById("modalBio");
+        var modalClose = document.getElementById("modalClose");
+
+        modalImg.onerror = function () { this.style.display = "none"; };
+
+        function openMember(card) {
+          var avatar = card.querySelector(".avatar");
+          modalImg.style.display = "block";
+          modalImg.src = card.getAttribute("data-img") || "";
+          modalImg.alt = card.querySelector("h3").textContent.trim();
+          modalInitials.textContent = avatar ? avatar.textContent.trim() : "";
+          modalName.textContent = card.querySelector("h3").textContent.trim();
+          var role = card.querySelector(".role");
+          modalRole.textContent = role ? role.textContent.trim() : "";
+          modalBio.textContent = card.querySelector(".bio").textContent.trim();
+          modal.hidden = false;
+        }
+
+        function closeModal() { modal.hidden = true; }
+
+        document.querySelectorAll(".member").forEach(function (card) {
+          card.addEventListener("click", function (e) {
+            if (e.target.closest("a")) return;
+            openMember(card);
+          });
+          card.setAttribute("tabindex", "0");
+          card.addEventListener("keydown", function (e) {
+            if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openMember(card); }
+          });
+        });
+
+        modalClose.addEventListener("click", closeModal);
+        modal.addEventListener("click", function (e) { if (e.target === modal) closeModal(); });
+        document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeModal(); });
+      })();
+    </script>
+  </body>
+</html>

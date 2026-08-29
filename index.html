@@ -284,15 +284,8 @@
       .sidebar.collapsed .nav-item span,
       .sidebar.collapsed .minimize-btn .label,
       .sidebar.collapsed .nav-group,
+      .sidebar.collapsed .nav-item.toggle,
       .sidebar.collapsed .nav-item .chev {
-        display: none;
-      }
-      .sidebar.collapsed .nav-num {
-        display: inline;
-        margin: 0;
-        font-size: 13px;
-      }
-      .sidebar.collapsed .nav-item.toggle > svg:first-child {
         display: none;
       }
       .sidebar.collapsed .sidebar-progress {
@@ -686,7 +679,7 @@
           <span class="nav-text">Introduction</span>
         </a>
 
-        <a class="nav-item toggle active" href="#sec1" data-target="sec1" title="Filipino Culture Online">
+        <a class="nav-item toggle" href="#sec1" data-target="sec1" title="Filipino Culture Online">
           <span class="nav-num">01</span>
           <span class="nav-text">Filipino Culture Online</span>
           <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
@@ -962,6 +955,13 @@
             if (!target) return;
             e.preventDefault();
             target.scrollIntoView({ behavior: "smooth", block: "start" });
+            setActive(target.id);
+            var grp = document.getElementById(target.id);
+            if (grp && grp.classList.contains("nav-group")) {
+              grp.classList.remove("collapsed");
+              var tog = document.querySelector('.nav-item.toggle[data-target="' + target.id + '"]');
+              if (tog) tog.classList.remove("collapsed");
+            }
           });
         });
 
@@ -975,27 +975,31 @@
           if (el) el.classList.add("active");
         }
 
-        function onScroll() {
+        function updateProgress() {
           var doc = document.documentElement;
           var scrolled = doc.scrollTop || document.body.scrollTop;
           var max = (doc.scrollHeight - doc.clientHeight) || 1;
           var pct = Math.min(100, Math.max(0, Math.round((scrolled / max) * 100)));
           if (progressFill) progressFill.style.width = pct + "%";
           if (progressPct) progressPct.textContent = pct + "%";
-
-          var line = window.scrollY + window.innerHeight * 0.3;
-          var current = sectionIds[0];
-          sectionIds.forEach(function (id) {
-            var el = document.getElementById(id);
-            if (!el) return;
-            var top = el.getBoundingClientRect().top + window.scrollY;
-            if (top <= line) current = id;
-          });
-          setActive(current);
         }
 
-        window.addEventListener("scroll", onScroll, { passive: true });
-        onScroll();
+        // Active section follows what is being read
+        var spyTargets = sectionIds
+          .map(function (id) { return document.getElementById(id); })
+          .filter(Boolean);
+        if ("IntersectionObserver" in window) {
+          var spyObserver = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) setActive(entry.target.id);
+            });
+          }, { rootMargin: "-30% 0px -60% 0px", threshold: 0 });
+          spyTargets.forEach(function (el) { spyObserver.observe(el); });
+        }
+
+        window.addEventListener("scroll", updateProgress, { passive: true });
+        updateProgress();
+        setActive("top");
       })();
     </script>
   </body>

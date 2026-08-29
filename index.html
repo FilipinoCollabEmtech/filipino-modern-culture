@@ -412,6 +412,26 @@
         gap: 10px;
       }
 
+      .team-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        color: var(--text-muted);
+        text-decoration: none;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        transition: color 0.2s ease;
+      }
+      .team-link:hover {
+        color: var(--accent);
+      }
+      .team-link svg {
+        width: 15px;
+        height: 15px;
+      }
+
       .topbar h1 {
         font-size: 20px;
         font-weight: 600;
@@ -726,6 +746,11 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
           <span class="nav-text">References</span>
         </a>
+
+        <a class="nav-item" href="teams.html" data-target="teams" title="Meet the Team">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span class="nav-text">Meet the Team</span>
+        </a>
       </nav>
 
       <div class="sidebar-progress">
@@ -753,6 +778,10 @@
           <h1>Filipino Modern</h1>
         </div>
         <div class="topbar-actions">
+          <a class="team-link" href="teams.html" title="Meet the Team">
+            The People Behind the Archive
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+          </a>
           <button class="menu-btn" id="menuBtn" aria-label="Open menu">
             <svg viewBox="0 0 24 24" stroke="#FFFFFF" stroke-width="2px" stroke-linecap="round" height="24" fill="#000000" stroke-linejoin="miter" stroke-dashoffset="0px" opacity="1" fill-opacity="1" stroke-opacity="1" font-family="calSansUI, &quot;calSansUI Fallback&quot;, sans-serif" font-size="16px" font-weight="400" text-anchor="start" dominant-baseline="auto" stop-color="#000000" stop-opacity="1" width="24"><g fill="#000000" stroke="#FFFFFF" stroke-width="2px" stroke-linecap="round" stroke-linejoin="miter" stroke-dashoffset="0px" opacity="1" fill-opacity="1" stroke-opacity="1" font-family="calSansUI, &quot;calSansUI Fallback&quot;, sans-serif" font-size="16px" font-weight="400" text-anchor="start" dominant-baseline="auto" stop-color="#000000" stop-opacity="1"><path d="M4 6h16" fill="#000000" stroke="#FFFFFF" stroke-width="2px" stroke-linecap="round" stroke-linejoin="miter" stroke-dashoffset="0px" opacity="1" fill-opacity="1" stroke-opacity="1" font-family="calSansUI, &quot;calSansUI Fallback&quot;, sans-serif" font-size="16px" font-weight="400" text-anchor="start" dominant-baseline="auto" stop-color="#000000" stop-opacity="1"></path></g><path d="M4 12h16" fill="#000000" stroke="#FFFFFF" stroke-width="2px" stroke-linecap="round" stroke-linejoin="miter" stroke-dashoffset="0px" opacity="1" fill-opacity="1" stroke-opacity="1" font-family="calSansUI, &quot;calSansUI Fallback&quot;, sans-serif" font-size="16px" font-weight="400" text-anchor="start" dominant-baseline="auto" stop-color="#000000" stop-opacity="1"></path><g fill="#000000" stroke="#FFFFFF" stroke-width="2px" stroke-linecap="round" stroke-linejoin="miter" stroke-dashoffset="0px" opacity="1" fill-opacity="1" stroke-opacity="1" font-family="calSansUI, &quot;calSansUI Fallback&quot;, sans-serif" font-size="16px" font-weight="400" text-anchor="start" dominant-baseline="auto" stop-color="#000000" stop-opacity="1"><path d="M4 18h16" fill="#000000" stroke="#FFFFFF" stroke-width="2px" stroke-linecap="round" stroke-linejoin="miter" stroke-dashoffset="0px" opacity="1" fill-opacity="1" stroke-opacity="1" font-family="calSansUI, &quot;calSansUI Fallback&quot;, sans-serif" font-size="16px" font-weight="400" text-anchor="start" dominant-baseline="auto" stop-color="#000000" stop-opacity="1"></path></g></svg>
           </button>

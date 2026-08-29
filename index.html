@@ -167,6 +167,67 @@
         transform: rotate(-90deg);
       }
 
+      .nav-item.active {
+        position: relative;
+        background: var(--surface-2);
+        color: var(--text);
+      }
+      .nav-item.active::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 8px;
+        bottom: 8px;
+        width: 3px;
+        border-radius: 3px;
+        background: var(--accent);
+      }
+
+      .nav-num {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--text-muted);
+        min-width: 20px;
+      }
+      .nav-item.toggle .nav-text {
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      .sidebar-progress {
+        padding: 14px 14px 4px;
+        border-top: 1px solid var(--border);
+        margin-top: auto;
+      }
+      .progress-label {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--text-muted);
+        margin-bottom: 8px;
+      }
+      .progress-track {
+        height: 6px;
+        border-radius: 6px;
+        background: var(--surface-2);
+        overflow: hidden;
+      }
+      .progress-fill {
+        height: 100%;
+        width: 0%;
+        background: var(--accent);
+        border-radius: 6px;
+        transition: width 0.15s ease;
+      }
+      .progress-pct {
+        font-size: 12px;
+        color: var(--text-muted);
+        margin-top: 6px;
+        text-align: right;
+      }
+
       /* ---------- Sidebar footer (minimize) ---------- */
       .sidebar-footer {
         border-top: 1px solid var(--border);
@@ -223,8 +284,18 @@
       .sidebar.collapsed .nav-item span,
       .sidebar.collapsed .minimize-btn .label,
       .sidebar.collapsed .nav-group,
-      .sidebar.collapsed .nav-item.toggle,
       .sidebar.collapsed .nav-item .chev {
+        display: none;
+      }
+      .sidebar.collapsed .nav-num {
+        display: inline;
+        margin: 0;
+        font-size: 13px;
+      }
+      .sidebar.collapsed .nav-item.toggle > svg:first-child {
+        display: none;
+      }
+      .sidebar.collapsed .sidebar-progress {
         display: none;
       }
 
@@ -603,67 +674,72 @@
       </div>
 
       <nav class="nav">
-        <a class="nav-item" href="#">
+        <a class="nav-item" href="#top" data-target="top" title="Title">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-          <span>Title</span>
+          <span class="nav-text">Title</span>
         </a>
 
-        <span class="nav-label">Introduction</span>
+        <span class="nav-label">Table of Contents</span>
 
-        <span class="nav-label">Section 1</span>
-        <a class="nav-item active toggle" href="#" data-target="sec1">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-          <span>Filipino Culture Online</span>
+        <a class="nav-item" href="#introduction" data-target="introduction" title="Introduction">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg>
+          <span class="nav-text">Introduction</span>
+        </a>
+
+        <a class="nav-item toggle active" href="#sec1" data-target="sec1" title="Filipino Culture Online">
+          <span class="nav-num">01</span>
+          <span class="nav-text">Filipino Culture Online</span>
           <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
         </a>
         <div class="nav-group" id="sec1">
-          <a class="nav-item nav-sub" href="#"><span>Social Media &amp; Cultural Expression</span></a>
-          <a class="nav-item nav-sub" href="#"><span>Filipino Language Online</span></a>
-          <a class="nav-item nav-sub" href="#"><span>Filipino Communities</span></a>
+          <a class="nav-item nav-sub" href="#sec1" data-target="sec1"><span>Social Media &amp; Cultural Expression</span></a>
+          <a class="nav-item nav-sub" href="#sec1" data-target="sec1"><span>Filipino Language Online</span></a>
+          <a class="nav-item nav-sub" href="#sec1" data-target="sec1"><span>Filipino Communities</span></a>
         </div>
 
-        <span class="nav-label">Section 2</span>
-        <a class="nav-item toggle" href="#" data-target="sec2">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-          <span>Preserving &amp; Sharing Culture</span>
+        <a class="nav-item toggle" href="#sec2" data-target="sec2" title="Preserving &amp; Sharing Culture">
+          <span class="nav-num">02</span>
+          <span class="nav-text">Preserving &amp; Sharing Culture</span>
           <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
         </a>
         <div class="nav-group" id="sec2">
-          <a class="nav-item nav-sub" href="#"><span>Digital Preservation</span></a>
-          <a class="nav-item nav-sub" href="#"><span>Global Reach</span></a>
-          <a class="nav-item nav-sub" href="#"><span>Younger Generation</span></a>
+          <a class="nav-item nav-sub" href="#sec2" data-target="sec2"><span>Digital Preservation</span></a>
+          <a class="nav-item nav-sub" href="#sec2" data-target="sec2"><span>Global Reach</span></a>
+          <a class="nav-item nav-sub" href="#sec2" data-target="sec2"><span>Younger Generation</span></a>
         </div>
 
-        <span class="nav-label">Section 3</span>
-        <a class="nav-item toggle" href="#" data-target="sec3">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-          <span>Benefits &amp; Challenges</span>
+        <a class="nav-item toggle" href="#sec3" data-target="sec3" title="Benefits &amp; Challenges">
+          <span class="nav-num">03</span>
+          <span class="nav-text">Benefits &amp; Challenges</span>
           <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
         </a>
         <div class="nav-group" id="sec3">
-          <a class="nav-item nav-sub" href="#"><span>Benefits</span></a>
-          <a class="nav-item nav-sub" href="#"><span>Challenges</span></a>
-          <a class="nav-item nav-sub" href="#"><span>Finding the Balance</span></a>
+          <a class="nav-item nav-sub" href="#sec3" data-target="sec3"><span>Benefits</span></a>
+          <a class="nav-item nav-sub" href="#sec3" data-target="sec3"><span>Challenges</span></a>
+          <a class="nav-item nav-sub" href="#sec3" data-target="sec3"><span>Finding the Balance</span></a>
         </div>
 
-        <span class="nav-label">Call to Action / Reflection</span>
-        <a class="nav-item" href="#">
+        <a class="nav-item" href="#reflection" data-target="reflection" title="Call to Action / Reflection">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          <span>What can we do?</span>
+          <span class="nav-text">Call to Action / Reflection</span>
         </a>
 
-        <span class="nav-label">Useful Hyperlinks</span>
-        <a class="nav-item" href="#">
+        <a class="nav-item" href="#hyperlinks" data-target="hyperlinks" title="Useful Hyperlinks">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>
-          <span>Explore Filipino Culture</span>
+          <span class="nav-text">Useful Hyperlinks</span>
         </a>
 
-        <span class="nav-label">References</span>
-        <a class="nav-item" href="#">
+        <a class="nav-item" href="#references" data-target="references" title="References">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-          <span>References</span>
+          <span class="nav-text">References</span>
         </a>
       </nav>
+
+      <div class="sidebar-progress">
+        <div class="progress-label">Reading progress</div>
+        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="progress-pct" id="progressPct">0%</div>
+      </div>
 
       <div class="sidebar-footer">
         <button class="theme-btn" id="themeToggle" aria-label="Toggle brown theme">
@@ -691,21 +767,21 @@
       </header>
 
       <section class="content">
-        <header class="page-head">
+        <header class="page-head" id="top">
           <p class="page-kicker">Filipino Modern</p>
           <h1>Filipino Culture in the digital age</h1>
           <p class="page-sub">How Filipinos create, share, and keep their culture alive online.</p>
         </header>
 
-        <div class="card topic">
+        <div class="card topic" id="introduction">
           <h2>Introduction</h2>
         </div>
-        <div class="card topic">
+        <div class="card topic" id="sec1">
           <div class="card-thumb"><video class="thumb-video" src="readest1.mp4" muted loop playsinline preload="none"></video></div>
           <h2>Section 1</h2>
           <h3>Filipino Culture Online</h3>
         </div>
-        <div class="card topic">
+        <div class="card topic" id="sec2">
           <div class="card-thumb"><video class="thumb-video" src="readest2.mp4" muted loop playsinline preload="none"></video></div>
           <h2>Section 2</h2>
           <h3>Preserving &amp; Sharing Culture</h3>
@@ -715,7 +791,7 @@
             <li>Younger Generation</li>
           </ul>
         </div>
-        <div class="card topic">
+        <div class="card topic" id="sec3">
           <div class="card-thumb"><video class="thumb-video" src="readest3.mp4" muted loop playsinline preload="none"></video></div>
           <h2>Section 3</h2>
           <h3>Benefits &amp; Challenges</h3>
@@ -725,15 +801,15 @@
             <li>Finding the Balance</li>
           </ul>
         </div>
-        <div class="card topic">
+        <div class="card topic" id="reflection">
           <h2>Call to Action / Reflection</h2>
           <p>What can we do?</p>
         </div>
-        <div class="card topic">
+        <div class="card topic" id="hyperlinks">
           <h2>Useful Hyperlinks</h2>
           <p>Explore Filipino Culture</p>
         </div>
-        <div class="card topic">
+        <div class="card topic" id="references">
           <h2>References</h2>
           <p>References</p>
         </div>
@@ -875,6 +951,51 @@
             sidebar.classList.toggle("collapsed");
           }
         });
+
+        // Sidebar navigation: smooth scroll, active tracking, reading progress
+        var navLinks = document.querySelectorAll('.nav-item[href^="#"]');
+        navLinks.forEach(function (link) {
+          link.addEventListener("click", function (e) {
+            var href = link.getAttribute("href");
+            if (!href || href === "#") return;
+            var target = document.querySelector(href);
+            if (!target) return;
+            e.preventDefault();
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+          });
+        });
+
+        var progressFill = document.getElementById("progressFill");
+        var progressPct = document.getElementById("progressPct");
+        var sectionIds = ["top", "introduction", "sec1", "sec2", "sec3", "reflection", "hyperlinks", "references"];
+
+        function setActive(id) {
+          document.querySelectorAll(".nav-item").forEach(function (n) { n.classList.remove("active"); });
+          var el = document.querySelector('.nav-item[data-target="' + id + '"]:not(.nav-sub)');
+          if (el) el.classList.add("active");
+        }
+
+        function onScroll() {
+          var doc = document.documentElement;
+          var scrolled = doc.scrollTop || document.body.scrollTop;
+          var max = (doc.scrollHeight - doc.clientHeight) || 1;
+          var pct = Math.min(100, Math.max(0, Math.round((scrolled / max) * 100)));
+          if (progressFill) progressFill.style.width = pct + "%";
+          if (progressPct) progressPct.textContent = pct + "%";
+
+          var line = window.scrollY + window.innerHeight * 0.3;
+          var current = sectionIds[0];
+          sectionIds.forEach(function (id) {
+            var el = document.getElementById(id);
+            if (!el) return;
+            var top = el.getBoundingClientRect().top + window.scrollY;
+            if (top <= line) current = id;
+          });
+          setActive(current);
+        }
+
+        window.addEventListener("scroll", onScroll, { passive: true });
+        onScroll();
       })();
     </script>
   </body>

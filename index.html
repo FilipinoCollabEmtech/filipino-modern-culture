@@ -748,19 +748,31 @@
         var loader = document.getElementById("loader");
         var loaderText = document.getElementById("loaderText");
 
-        // Always start at the very top (and keep the sidebar scrolled to its top)
+        // Always start at the very top with all sidebar sections OPEN
         if ("scrollRestoration" in history) {
           history.scrollRestoration = "manual";
         }
-        window.scrollTo(0, 0);
-        var navEl = document.querySelector(".nav");
-        if (navEl) navEl.scrollTop = 0;
-        document.querySelectorAll(".nav-group").forEach(function (g) {
-          g.classList.remove("collapsed");
-        });
-        document.querySelectorAll(".nav-item.toggle").forEach(function (b) {
-          b.classList.remove("collapsed");
-        });
+
+        function resetPagePosition() {
+          window.scrollTo(0, 0);
+
+          var navEl = document.querySelector(".nav");
+          if (navEl) navEl.scrollTop = 0;
+
+          document.querySelectorAll(".nav-group").forEach(function (g) {
+            g.classList.remove("collapsed");
+          });
+
+          document.querySelectorAll(".nav-item.toggle").forEach(function (b) {
+            b.classList.remove("collapsed");
+          });
+        }
+
+        resetPagePosition();
+        window.addEventListener("load", resetPagePosition);
+        window.addEventListener("pageshow", resetPagePosition);
+        setTimeout(resetPagePosition, 50);
+        setTimeout(resetPagePosition, 500);
 
         if (window.bookAnimData && typeof lottie !== "undefined") {
           lottie.loadAnimation({

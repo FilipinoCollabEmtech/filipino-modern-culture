@@ -579,7 +579,7 @@
       }
       .loader-video {
         width: min(380px, 58vw);
-        height: auto;
+        height: 10px;
         max-height: none;
         border-radius: 16px;
         object-fit: cover;
@@ -596,8 +596,8 @@
         animation: loaderPulse 1.2s ease-in-out infinite;
       }
       .loader-book {
-        width: 280px;
-        height: 200px;
+        width: 400px;
+        height: 400px;
         margin: 0 auto 20px;
         display: flex;
         align-items: center;
@@ -615,7 +615,6 @@
       .loader.turn {
         transform: perspective(1800px) rotateY(-172deg);
       }
-
       @keyframes loaderPulse {
         0%, 100% { opacity: 0.55; }
         50% { opacity: 1; }

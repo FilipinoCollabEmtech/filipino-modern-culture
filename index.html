@@ -221,7 +221,10 @@
       .sidebar.collapsed .brand-name,
       .sidebar.collapsed .nav-label,
       .sidebar.collapsed .nav-item span,
-      .sidebar.collapsed .minimize-btn .label {
+      .sidebar.collapsed .minimize-btn .label,
+      .sidebar.collapsed .nav-group,
+      .sidebar.collapsed .nav-item.toggle,
+      .sidebar.collapsed .nav-item .chev {
         display: none;
       }
 
@@ -488,6 +491,11 @@
         width: 100%;
         height: 100%;
       }
+      .loader-book svg path,
+      .loader-book svg rect,
+      .loader-book svg g {
+        fill: transparent !important;
+      }
       .loader.turn {
         transform: perspective(1800px) rotateY(-172deg);
       }
@@ -640,7 +648,7 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
-    <script src="book.js"></script>
+    <script src="book.js?v=2"></script>
     <script>
       (function () {
         // Loading screen

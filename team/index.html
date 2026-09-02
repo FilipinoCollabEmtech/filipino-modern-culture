@@ -244,9 +244,63 @@
         color: var(--accent);
       }
       .modal-bio { margin: 0; font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+
+      .loader {
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 24px;
+        transform-origin: left center;
+        transform: perspective(1800px) rotateY(0deg);
+        background: linear-gradient(105deg, #f6ecd9 0%, #efe1c6 55%, #e6d2b0 100%);
+        box-shadow:
+          inset -60px 0 80px rgba(110, 80, 50, 0.18),
+          inset 0 0 0 1px rgba(110, 80, 50, 0.08);
+        backface-visibility: hidden;
+        transition: transform 1.35s cubic-bezier(0.62, 0.04, 0.3, 1);
+      }
+      .loader::before {
+        content: "";
+        position: absolute;
+        inset: 26px;
+        border: 1px solid rgba(110, 80, 50, 0.22);
+        border-radius: 3px;
+        pointer-events: none;
+      }
+      .loader-title {
+        width: 100%;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 34px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        color: #5e4329;
+        text-align: center;
+        margin: 0;
+      }
+      .loader-text {
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+        color: #8a6a45;
+        min-height: 22px;
+        text-align: center;
+        margin-top: 6px;
+      }
+      .loader.turn {
+        transform: perspective(1800px) rotateY(-172deg);
+      }
     </style>
   </head>
   <body>
+    <div class="loader" id="loader">
+      <h1 class="loader-title">Filipino in Modern Times</h1>
+      <div class="loader-text" id="loaderText">Returning to the archive...</div>
+    </div>
     <header class="topbar">
       <a class="brand" href="../home/">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
@@ -273,8 +327,8 @@
         <p class="role">Designer</p>
         <p class="bio">Shapes the visual language and editorial feel of Filipino in Modern Times from typography to the reading experience.</p>
         <div class="socials">
-          <a href="#">Twitter</a>
-          <a href="#">Portfolio</a>
+          <a href="https://undisclosedinfo.com" target="_blank" rel="noopener">Twitter</a>
+          <a href="https://undisclosedinfo.com" target="_blank" rel="noopener">Portfolio</a>
         </div>
       </article>
 
@@ -284,8 +338,8 @@
         <p class="role">Researcher</p>
         <p class="bio">Curates sources and verifies cultural references so the archive stays accurate and respectful.</p>
         <div class="socials">
-          <a href="#">Twitter</a>
-          <a href="#">GitHub</a>
+          <a href="https://undisclosedinfo.com" target="_blank" rel="noopener">Twitter</a>
+          <a href="https://undisclosedinfo.com" target="_blank" rel="noopener">GitHub</a>
         </div>
       </article>
 
@@ -295,8 +349,8 @@
         <p class="role">Writer</p>
         <p class="bio">Turns research into clear, warm storytelling for each section of the site.</p>
         <div class="socials">
-          <a href="#">Twitter</a>
-          <a href="#">Blog</a>
+          <a href="https://undisclosedinfo.com" target="_blank" rel="noopener">Twitter</a>
+          <a href="https://undisclosedinfo.com" target="_blank" rel="noopener">Blog</a>
         </div>
       </article>
 
@@ -306,8 +360,8 @@
         <p class="role">Developer</p>
         <p class="bio">Builds and maintains the site, keeping the reading experience smooth across devices.</p>
         <div class="socials">
-          <a href="#">GitHub</a>
-          <a href="#">Site</a>
+          <a href="https://undisclosedinfo.com" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://undisclosedinfo.com" target="_blank" rel="noopener">Site</a>
         </div>
       </article>
 
@@ -317,8 +371,8 @@
         <p class="role">Developer</p>
         <p class="bio">Implements features and keeps the publication fast, accessible, and reliable.</p>
         <div class="socials">
-          <a href="#">GitHub</a>
-          <a href="#">Email</a>
+          <a href="https://undisclosedinfo.com" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://undisclosedinfo.com" target="_blank" rel="noopener">Email</a>
         </div>
       </article>
 
@@ -328,8 +382,8 @@
         <p class="role">Presenter</p>
         <p class="bio">Brings the project to life on stage and in talks, sharing Filipino in Modern Times with new audiences.</p>
         <div class="socials">
-          <a href="#">Twitter</a>
-          <a href="#">LinkedIn</a>
+          <a href="https://undisclosedinfo.com" target="_blank" rel="noopener">Twitter</a>
+          <a href="https://undisclosedinfo.com" target="_blank" rel="noopener">LinkedIn</a>
         </div>
       </article>
     </main>
@@ -393,6 +447,33 @@
         modalClose.addEventListener("click", closeModal);
         modal.addEventListener("click", function (e) { if (e.target === modal) closeModal(); });
         document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeModal(); });
+
+        // ---- Page transitions ----
+        var loader = document.getElementById("loader");
+        var loaderText = document.getElementById("loaderText");
+        var pageMessages = {
+          "../home/": "Returning to the archive...",
+          "../": "Returning to the archive...",
+          "home/": "Returning to the archive..."
+        };
+        document.querySelectorAll('a[href]').forEach(function (link) {
+          link.addEventListener("click", function (e) {
+            var href = link.getAttribute("href");
+            if (!href || href.startsWith("#") || link.target === "_blank" || href.startsWith("javascript:") || href.startsWith("mailto:")) return;
+            e.preventDefault();
+            var msg = pageMessages[href] || "Preparing the next page...";
+            loaderText.textContent = msg;
+            loader.style.display = "flex";
+            loader.classList.remove("turn");
+            void loader.offsetWidth;
+            setTimeout(function () {
+              loader.classList.add("turn");
+            }, 50);
+            setTimeout(function () {
+              window.location.href = href;
+            }, 1200);
+          });
+        });
       })();
     </script>
   </body>

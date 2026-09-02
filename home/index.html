@@ -389,6 +389,106 @@
         font-size: 13px;
         letter-spacing: 0.04em;
       }
+      #introduction {
+        background: linear-gradient(160deg, var(--surface) 0%, var(--surface-2) 100%);
+        border: 1px solid var(--accent);
+        border-radius: 16px;
+        position: relative;
+        overflow: hidden;
+      }
+      #introduction::before {
+        content: "";
+        position: absolute;
+        top: -30%; right: -20%;
+        width: 300px; height: 300px;
+        background: radial-gradient(circle, rgba(201,149,76,0.12) 0%, transparent 70%);
+        pointer-events: none;
+      }
+      #introduction > * { position: relative; z-index: 1; }
+      #introduction h2 {
+        font-size: 24px;
+        margin: 0 0 4px;
+        color: var(--accent);
+      }
+      #introduction h3 {
+        font-size: 15px;
+        margin: 0 0 14px;
+        color: var(--text-muted);
+        font-weight: 400;
+        font-style: italic;
+      }
+      .culture-map {
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
+        flex-wrap: wrap;
+      }
+      .map-svg-wrap {
+        flex: 0 0 200px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+      }
+      .map-svg-wrap svg {
+        width: 180px;
+        height: auto;
+      }
+      .map-region {
+        cursor: pointer;
+        transition: fill 0.2s ease, opacity 0.2s ease;
+        opacity: 0.7;
+      }
+      .map-region:hover,
+      .map-region.active {
+        opacity: 1;
+      }
+      #region-luzon:hover, #region-luzon.active { fill: #e07a5f; }
+      #region-visayas:hover, #region-visayas.active { fill: #81b29a; }
+      #region-mindanao:hover, #region-mindanao.active { fill: #f2cc8f; }
+      .map-legend {
+        display: flex;
+        gap: 12px;
+        font-size: 11px;
+        color: var(--text-muted);
+      }
+      .map-legend span::before {
+        content: "";
+        display: inline-block;
+        width: 10px; height: 10px;
+        border-radius: 3px;
+        margin-right: 4px;
+        vertical-align: middle;
+      }
+      .map-legend .leg-luzon::before { background: #e07a5f; }
+      .map-legend .leg-visayas::before { background: #81b29a; }
+      .map-legend .leg-mindanao::before { background: #f2cc8f; }
+      .map-info {
+        flex: 1;
+        min-width: 200px;
+      }
+      .map-info h4 {
+        font-size: 15px;
+        margin: 0 0 8px;
+        color: var(--text);
+      }
+      .map-info p {
+        font-size: 13px;
+        color: var(--text-muted);
+        line-height: 1.6;
+        margin: 0;
+      }
+      .map-info ul {
+        margin: 8px 0 0;
+        padding-left: 18px;
+        font-size: 13px;
+        color: var(--text-muted);
+        line-height: 1.7;
+      }
+      @media (max-width: 600px) {
+        .culture-map { flex-direction: column; align-items: center; }
+        .map-svg-wrap { flex: 0 0 auto; }
+      }
 
       /* ---------- Main ---------- */
       .main {
@@ -584,6 +684,338 @@
         max-width: 420px;
         margin: 16px auto 0;
       }
+      figure.img-wrap {
+        margin: 0;
+        position: relative;
+      }
+      figure.img-wrap .content-image {
+        margin: 0;
+      }
+      figcaption {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        padding: 8px 0 0;
+        font-size: 12px;
+        color: var(--text-muted);
+        line-height: 1.4;
+      }
+      figcaption .cap-text { flex: 1; }
+      figcaption .cap-src {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        flex-shrink: 0;
+        padding: 3px 8px;
+        border: 1px solid var(--border);
+        border-radius: 5px;
+        background: transparent;
+        color: var(--text-muted);
+        text-decoration: none;
+        font-size: 11px;
+        font-weight: 500;
+        transition: border-color 0.15s ease, color 0.15s ease;
+      }
+      figcaption .cap-src:hover { border-color: var(--accent); color: var(--accent); }
+      figcaption .cap-src svg { width: 11px; height: 11px; }
+      figure.img-wrap { cursor: zoom-in; }
+      .lightbox-overlay {
+        position: fixed; inset: 0; z-index: 200;
+        background: rgba(0,0,0,0.88);
+        display: flex; align-items: center; justify-content: center;
+        padding: 24px; flex-direction: column; gap: 12px;
+      }
+      .lightbox-overlay[hidden] { display: none; }
+      .lightbox-img {
+        max-width: min(90vw, 900px); max-height: 75vh;
+        border-radius: 10px; object-fit: contain;
+      }
+      .lightbox-cap {
+        color: #ccc; font-size: 13px; text-align: center; max-width: 600px;
+      }
+      .lightbox-close {
+        position: absolute; top: 16px; right: 20px;
+        background: transparent; border: none; color: #fff;
+        font-size: 32px; cursor: pointer; line-height: 1;
+      }
+      .lightbox-nav {
+        position: absolute; top: 50%; transform: translateY(-50%);
+        background: rgba(255,255,255,0.15); border: none; color: #fff;
+        font-size: 28px; width: 48px; height: 48px; border-radius: 50%;
+        cursor: pointer; display: flex; align-items: center; justify-content: center;
+        transition: background 0.15s ease;
+      }
+      .lightbox-nav:hover { background: rgba(255,255,255,0.3); }
+      .lightbox-prev { left: 16px; }
+      .lightbox-next { right: 16px; }
+      .dyk {
+        background: var(--surface-2);
+        border-left: 3px solid var(--accent);
+        border-radius: 0 8px 8px 0;
+        padding: 14px 16px;
+        margin: 14px 0;
+      }
+      .dyk-label {
+        font-size: 11px; font-weight: 700; text-transform: uppercase;
+        letter-spacing: 0.06em; color: var(--accent); margin-bottom: 4px;
+      }
+      .dyk p { margin: 0; font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+      .timeline-card {
+        overflow-x: auto;
+        padding: 8px 0 16px;
+      }
+      .timeline {
+        display: flex;
+        align-items: flex-start;
+        gap: 0;
+        min-width: max-content;
+        padding: 0 8px;
+        position: relative;
+      }
+      .timeline::before {
+        content: "";
+        position: absolute;
+        top: 22px;
+        left: 0; right: 0;
+        height: 3px;
+        background: var(--border);
+        border-radius: 3px;
+      }
+      .tl-node {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        position: relative;
+        z-index: 1;
+        min-width: 110px;
+        cursor: pointer;
+      }
+      .tl-dot {
+        width: 16px; height: 16px;
+        border-radius: 50%;
+        background: var(--surface-2);
+        border: 3px solid var(--accent);
+        transition: background 0.2s ease, transform 0.2s ease;
+        flex-shrink: 0;
+      }
+      .tl-node:hover .tl-dot,
+      .tl-node.active .tl-dot {
+        background: var(--accent);
+        transform: scale(1.3);
+      }
+      .tl-label {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--text-muted);
+        text-align: center;
+        line-height: 1.3;
+        max-width: 100px;
+        transition: color 0.2s ease;
+      }
+      .tl-node:hover .tl-label,
+      .tl-node.active .tl-label { color: var(--text); }
+      .tl-detail {
+        margin-top: 16px;
+        padding: 14px 16px;
+        background: var(--surface-2);
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        font-size: 13px;
+        color: var(--text-muted);
+        line-height: 1.5;
+        min-height: 48px;
+      }
+      .compare-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        font-size: 13px;
+        margin: 12px 0;
+      }
+      .compare-table th {
+        text-align: left;
+        padding: 10px 14px;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--accent);
+        border-bottom: 2px solid var(--accent);
+      }
+      .compare-table td {
+        padding: 10px 14px;
+        border-bottom: 1px solid var(--border);
+        color: var(--text-muted);
+        transition: background 0.15s ease, color 0.15s ease;
+      }
+      .compare-table tr:hover td {
+        background: var(--surface-2);
+        color: var(--text);
+      }
+      .compare-table .arrow-col {
+        text-align: center;
+        color: var(--accent);
+        font-size: 16px;
+        padding: 10px 8px;
+        width: 40px;
+      }
+      .balance-layout {
+        text-align: center;
+      }
+      .balance-top {
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        color: var(--text);
+        margin-bottom: 8px;
+      }
+      .balance-stem {
+        width: 3px;
+        height: 24px;
+        background: var(--accent);
+        margin: 0 auto 8px;
+        border-radius: 3px;
+      }
+      .balance-cols {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        text-align: left;
+        margin-bottom: 8px;
+      }
+      .balance-col h4 {
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin: 0 0 8px;
+        padding-bottom: 6px;
+        border-bottom: 2px solid;
+      }
+      .balance-col.benefits h4 { color: #6fbf73; border-color: #6fbf73; }
+      .balance-col.challenges h4 { color: #e07a5f; border-color: #e07a5f; }
+      .balance-col ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        font-size: 13px;
+        color: var(--text-muted);
+        line-height: 1.8;
+      }
+      .balance-stem-down {
+        width: 3px;
+        height: 24px;
+        background: var(--accent);
+        margin: 0 auto 8px;
+        border-radius: 3px;
+      }
+      .balance-bottom {
+        padding: 14px 20px;
+        background: var(--surface-2);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text);
+        display: inline-block;
+      }
+      @media (max-width: 600px) {
+        .balance-cols { grid-template-columns: 1fr; }
+      }
+      .climax-card {
+        text-align: center;
+        background: linear-gradient(135deg, var(--surface) 0%, var(--surface-2) 100%);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 32px 24px;
+        position: relative;
+        overflow: hidden;
+      }
+      .climax-card::before {
+        content: "";
+        position: absolute;
+        top: -50%; left: -50%;
+        width: 200%; height: 200%;
+        background: radial-gradient(circle at 50% 50%, rgba(201,149,76,0.06) 0%, transparent 50%);
+        animation: climaxPulse 4s ease-in-out infinite;
+      }
+      @keyframes climaxPulse {
+        0%, 100% { transform: scale(1); opacity: 0.5; }
+        50% { transform: scale(1.05); opacity: 1; }
+      }
+      .climax-card > * { position: relative; z-index: 1; }
+      .climax-card h2 {
+        font-size: 22px;
+        margin: 0 0 8px;
+        color: var(--text);
+        font-style: italic;
+      }
+      .climax-card .climax-divider {
+        width: 60px; height: 3px;
+        background: var(--accent);
+        border-radius: 3px;
+        margin: 0 auto 16px;
+      }
+      .climax-card p {
+        font-size: 14px;
+        color: var(--text-muted);
+        line-height: 1.7;
+        max-width: 520px;
+        margin: 0 auto;
+      }
+      .reveal {
+        opacity: 0;
+        transform: translateY(18px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      #backToTop {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: var(--accent);
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        z-index: 999;
+      }
+      #backToTop.show {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      #backToTop:hover {
+        transform: scale(1.1);
+      }
+      .content-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        align-items: start;
+        margin: 16px 0;
+      }
+      .content-row .row-text { display: flex; flex-direction: column; gap: 10px; }
+      .content-row .row-text p { margin: 0; }
+      .content-row .row-img { display: flex; flex-direction: column; gap: 10px; }
+      .content-row .row-img .content-image { margin: 0; }
+      @media (max-width: 700px) {
+        .content-row { grid-template-columns: 1fr; }
+      }
 
       .page-head {
         text-align: center;
@@ -726,6 +1158,42 @@
       .loader.turn {
         transform: perspective(1800px) rotateY(-172deg);
       }
+
+      /* Outgoing navigation: keep the cover over the old page. */
+      .loader.nav-transition {
+        transform: none !important;
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      .loader.nav-transition .loader-book {
+        animation: navBookMove 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+      }
+
+      .loader.nav-transition .loader-title {
+        animation: navTitleIn 0.45s ease both;
+      }
+
+      .loader.nav-transition .loader-text {
+        animation: navTextIn 0.55s ease 0.08s both;
+      }
+
+      @keyframes navBookMove {
+        0% { transform: perspective(900px) rotateY(0deg) scale(0.88); opacity: 0.7; }
+        45% { transform: perspective(900px) rotateY(-22deg) scale(1.02); opacity: 1; }
+        72% { transform: perspective(900px) rotateY(14deg) scale(1); }
+        100% { transform: perspective(900px) rotateY(0deg) scale(1); opacity: 1; }
+      }
+
+      @keyframes navTitleIn {
+        from { opacity: 0; transform: translateY(-8px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @keyframes navTextIn {
+        from { opacity: 0; transform: translateY(8px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
       @keyframes loaderPulse {
         0%, 100% { opacity: 0.55; }
         50% { opacity: 1; }
@@ -796,9 +1264,9 @@
           <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
         </a>
         <div class="nav-group" id="nav-sec1">
-          <a class="nav-item nav-sub" href="#sec1" data-target="sec1"><span>Social Media &amp; Cultural Expression</span></a>
-          <a class="nav-item nav-sub" href="#sec1" data-target="sec1"><span>Filipino Language Online</span></a>
-          <a class="nav-item nav-sub" href="#sec1" data-target="sec1"><span>Filipino Communities</span></a>
+          <a class="nav-item nav-sub" href="#sec1-social" data-target="sec1-social"><span>Social Media &amp; Cultural Expression</span></a>
+          <a class="nav-item nav-sub" href="#sec1-language" data-target="sec1-language"><span>Filipino Language Online</span></a>
+          <a class="nav-item nav-sub" href="#sec1-communities" data-target="sec1-communities"><span>Filipino Communities</span></a>
         </div>
 
         <a class="nav-item toggle" href="#sec2" data-target="nav-sec2" title="Preserving &amp; Sharing Culture">
@@ -807,9 +1275,9 @@
           <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
         </a>
         <div class="nav-group" id="nav-sec2">
-          <a class="nav-item nav-sub" href="#sec2" data-target="sec2"><span>Digital Preservation</span></a>
-          <a class="nav-item nav-sub" href="#sec2" data-target="sec2"><span>Global Reach</span></a>
-          <a class="nav-item nav-sub" href="#sec2" data-target="sec2"><span>Younger Generation</span></a>
+          <a class="nav-item nav-sub" href="#sec2-preservation" data-target="sec2-preservation"><span>Digital Preservation</span></a>
+          <a class="nav-item nav-sub" href="#sec2-global" data-target="sec2-global"><span>Global Reach</span></a>
+          <a class="nav-item nav-sub" href="#sec2-youth" data-target="sec2-youth"><span>Younger Generation</span></a>
         </div>
 
         <a class="nav-item toggle" href="#sec3" data-target="nav-sec3" title="Benefits &amp; Challenges">
@@ -820,7 +1288,6 @@
         <div class="nav-group" id="nav-sec3">
           <a class="nav-item nav-sub" href="#sec3" data-target="sec3"><span>Benefits</span></a>
           <a class="nav-item nav-sub" href="#sec3" data-target="sec3"><span>Challenges</span></a>
-          <a class="nav-item nav-sub" href="#sec3" data-target="sec3"><span>Finding the Balance</span></a>
         </div>
 
         <a class="nav-item" href="#reflection" data-target="reflection" title="Call to Action / Reflection">
@@ -891,24 +1358,130 @@
           <h3>What is Filipino culture + why does the digital age matter?</h3>
           <p>Filipino culture is an intricate tapestry woven from centuries of indigenous traditions, historical influences, and deeply ingrained social values. At its heart lie core principles such as <strong>pakikisama</strong> (closeness and interpersonal harmony), <strong>bayanihan</strong> (communal unity and cooperation), and strong familial devotion. These values dictate how Filipinos treat one another, celebrate life, and navigate societal change.</p>
           <p>As technology rapidly transforms global communications, the Philippines has quickly risen as one of the world's most hyper-connected nations. The digital age matters immensely because it shifts where and how cultural life occurs. Rather than replacing physical heritage, the digital space acts as an expansive virtual arena where Filipino identity is actively expressed, debated, adapted, and preserved. Understanding this intersection is key to ensuring that rich cultural traditions remain vibrant and relevant for future generations living in a hyper-connected world.</p>
-          <img src="../images/bayanihan.jpg" alt="Filipino community practicing bayanihan" class="content-image">
+          <figure class="img-wrap">
+            <img src="../images/bayanihan.jpg" alt="Filipino community practicing bayanihan" class="content-image">
+            <figcaption>
+              <span class="cap-text">Bayanihan — communal cooperation in the Philippines</span>
+              <a class="cap-src" href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="card topic" id="timeline">
+          <h2>The Evolution of Filipino Culture</h2>
+          <p style="color:var(--text-muted);font-size:13px;margin:0 0 12px;">Click each era to learn how technology shaped Filipino culture.</p>
+          <div class="timeline-card">
+            <div class="timeline" id="timelineTrack">
+              <div class="tl-node active" data-text="Early Filipino communities preserved culture through oral tradition, rituals, and handcrafted art — bayanihan, fiestas, and storytelling connected people face to face.">
+                <div class="tl-dot"></div>
+                <div class="tl-label">Traditional<br>Culture</div>
+              </div>
+              <div class="tl-node" data-text="Print media, radio, and television brought Filipino stories to wider audiences. National identity was shaped by shared broadcasts and published works.">
+                <div class="tl-dot"></div>
+                <div class="tl-label">Print / Radio /<br>TV</div>
+              </div>
+              <div class="tl-node" data-text="The internet connected Filipinos globally. Email, forums, and early social media created new spaces for diaspora communities to stay linked to home.">
+                <div class="tl-dot"></div>
+                <div class="tl-label">Internet<br>Era</div>
+              </div>
+              <div class="tl-node" data-text="Facebook and YouTube became cultural platforms. Filipino creators gained global followings, sharing food, music, and traditions with the world.">
+                <div class="tl-dot"></div>
+                <div class="tl-label">Facebook /<br>YouTube</div>
+              </div>
+              <div class="tl-node" data-text="TikTok and Gen Z creators are redefining Filipino culture — blending tradition with viral trends, internet slang, and digital bayanihan.">
+                <div class="tl-dot"></div>
+                <div class="tl-label">TikTok /<br>Gen Z</div>
+              </div>
+              <div class="tl-node" data-text="Filipino culture now lives simultaneously in physical and digital spaces — preserved, adapted, and shared across the globe.">
+                <div class="tl-dot"></div>
+                <div class="tl-label">Digital<br>Filipino</div>
+              </div>
+            </div>
+          </div>
+          <div class="tl-detail" id="tlDetail">Early Filipino communities preserved culture through oral tradition, rituals, and handcrafted art — bayanihan, fiestas, and storytelling connected people face to face.</div>
+        </div>
+
+        <div class="card topic" id="culture-map">
+          <h2>Culture Map of the Philippines</h2>
+          <p style="color:var(--text-muted);font-size:13px;margin:0 0 16px;">Click a region to explore its cultural highlights.</p>
+          <div class="culture-map">
+            <div class="map-svg-wrap">
+              <svg viewBox="0 0 200 400" xmlns="http://www.w3.org/2000/svg">
+                <!-- Luzon -->
+                <path id="region-luzon" class="map-region active" d="M80,20 L120,15 L140,40 L145,80 L130,120 L110,140 L90,135 L70,110 L60,70 L65,40 Z" fill="#c9954c"/>
+                <!-- Visayas -->
+                <path id="region-visayas" class="map-region" d="M75,160 L100,150 L130,155 L140,175 L130,200 L100,210 L80,200 L70,180 Z" fill="#c9954c"/>
+                <!-- Mindanao -->
+                <path id="region-mindanao" class="map-region" d="M70,230 L110,220 L140,235 L150,270 L140,310 L110,330 L80,320 L60,290 L55,260 Z" fill="#c9954c"/>
+              </svg>
+              <div class="map-legend">
+                <span class="leg-luzon">Luzon</span>
+                <span class="leg-visayas">Visayas</span>
+                <span class="leg-mindanao">Mindanao</span>
+              </div>
+            </div>
+            <div class="map-info" id="mapInfo">
+              <h4>Luzon</h4>
+              <p>Home to Manila, the cultural and economic heart of the Philippines. Luzon is where modern digital culture meets deep historical roots.</p>
+              <ul>
+                <li>Manila — social media capital</li>
+                <li>Banaue Rice Terraces (Ifugao)</li>
+                <li>Pahiyas Festival (Quezon)</li>
+                <li>Barong Tagalog formal wear</li>
+              </ul>
+            </div>
+          </div>
         </div>
 
         <div class="card topic" id="sec1">
           <h2>Section 1: Filipino Culture Online</h2>
 
-          <h3>1. Social Media &amp; Cultural Expression</h3>
-          <img src="../images/internet-cafe.jpg" alt="Internet shop in the Philippines" class="content-image">
-          <p>Social media networks have evolved into primary cultural commons for modern Filipinos. Platforms like Facebook, Instagram, and TikTok serve as dynamic outlets where everyday life meets cultural storytelling. Millennials and Gen Z leverage these spaces to showcase traditional crafts, share home-cooked Filipino recipes, and participate in viral trends that reflect distinctively Filipino humor and social commentary.</p>
-          <p>Netnographic research highlights how foundational values translate directly into digital interactions. Principles of collective respect, community support, and shared experiences guide how content is created and consumed online. However, this digital shift also challenges traditional views on personal privacy and boundaries, forcing users to balance communal openness with modern concerns over personal data.</p>
+          <h3 id="sec1-social">1. Social Media &amp; Cultural Expression</h3>
+          <div class="content-row">
+            <div class="row-img">
+              <figure class="img-wrap">
+                <img src="../images/internet-cafe.jpg" alt="Internet shop in the Philippines" class="content-image">
+                <figcaption>
+                  <span class="cap-text">Internet shop in the Philippines</span>
+                  <a class="cap-src" href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+                </figcaption>
+              </figure>
+            </div>
+            <div class="row-text">
+              <p>Social media networks have evolved into primary cultural commons for modern Filipinos. Platforms like Facebook, Instagram, and TikTok serve as dynamic outlets where everyday life meets cultural storytelling. Millennials and Gen Z leverage these spaces to showcase traditional crafts, share home-cooked Filipino recipes, and participate in viral trends that reflect distinctively Filipino humor and social commentary.</p>
+              <p>Netnographic research highlights how foundational values translate directly into digital interactions. Principles of collective respect, community support, and shared experiences guide how content is created and consumed online. However, this digital shift also challenges traditional views on personal privacy and boundaries, forcing users to balance communal openness with modern concerns over personal data.</p>
+            </div>
+          </div>
 
-          <h3>2. Filipino Language Online</h3>
-          <img src="../images/taglish.jpg" alt="Modern online language and communication" class="content-image">
-          <p>The digital realm has accelerated the transformation of language within the Philippines. Online communication heavily features "Taglish"—a seamless blend of Tagalog and English that mirrors the everyday fluid speech of urban Filipinos. This linguistic evolution helps express complex modern thoughts while maintaining deep cultural resonance.</p>
-          <img src="../images/baybayin.png" alt="Baybayin writing system" class="content-image">
-          <p>Furthermore, platforms like TikTok have given rise to vibrant internet slang among younger demographics. Words are constantly re-invented, shortened, or given new cultural meanings, serving as a form of social currency and identity marker for Gen Z. These dynamic linguistic shifts show that the national language is not a static artifact, but a living medium that continuously adapts to technological spaces.</p>
+          <h3 id="sec1-language">2. Filipino Language Online</h3>
+          <div class="content-row">
+            <div class="row-text">
+              <p>The digital realm has accelerated the transformation of language within the Philippines. Online communication heavily features "Taglish"—a seamless blend of Tagalog and English that mirrors the everyday fluid speech of urban Filipinos. This linguistic evolution helps express complex modern thoughts while maintaining deep cultural resonance.</p>
+              <div class="dyk">
+                <div class="dyk-label">Did You Know?</div>
+                <p>Taglish blends Filipino/Tagalog and English in everyday digital communication — it's one of the most widely spoken mixed languages in the world.</p>
+              </div>
+              <figure class="img-wrap">
+                <img src="../images/baybayin.png" alt="Baybayin writing system" class="content-image">
+                <figcaption>
+                  <span class="cap-text">Baybayin — traditional Filipino writing system</span>
+                  <a class="cap-src" href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+                </figcaption>
+              </figure>
+              <p>Furthermore, platforms like TikTok have given rise to vibrant internet slang among younger demographics. Words are constantly re-invented, shortened, or given new cultural meanings, serving as a form of social currency and identity marker for Gen Z. These dynamic linguistic shifts show that the national language is not a static artifact, but a living medium that continuously adapts to technological spaces.</p>
+            </div>
+            <div class="row-img">
+              <figure class="img-wrap">
+                <img src="../images/taglish.jpg" alt="Modern online language and communication" class="content-image">
+                <figcaption>
+                  <span class="cap-text">Modern online communication and Taglish</span>
+                  <a class="cap-src" href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+                </figcaption>
+              </figure>
+            </div>
+          </div>
 
-          <h3>3. Filipino Communities</h3>
+          <h3 id="sec1-communities">3. Filipino Communities</h3>
           <p>For a nation with millions of citizens living and working abroad as Overseas Filipino Workers (OFWs), digital spaces serve as an essential lifeline. Online communities bridge vast physical distances, allowing diaspora populations to remain intimately connected to their homeland's social and cultural rhythms.</p>
           <p>Virtual groups, community chat hubs, and forum spaces mirror the traditional barangay spirit. Through these platforms, Filipinos organize mutual aid drives, celebrate town fiestas virtually, offer support to fellow countrymen during times of hardship, and pass down cultural stories to children growing up outside the country.</p>
         </div>
@@ -916,49 +1489,177 @@
         <div class="card topic" id="sec2">
           <h2>Section 2: Preserving &amp; Sharing Culture</h2>
 
-          <h3>1. Digital Preservation</h3>
-          <div class="image-pair">
-            <img src="../images/tnalak-weaver.jpg" alt="T'boli T'nalak weaver at Lake Sebu, South Cotabato" class="content-image">
-            <img src="../images/tinikling.gif" alt="Tinikling dance performance by Muntinlupa Dance Company" class="content-image">
+          <h3 id="sec2-preservation">1. Digital Preservation</h3>
+          <div class="content-row">
+            <div class="row-img">
+              <div class="image-pair">
+                <figure class="img-wrap">
+                  <img src="../images/tnalak-weaver.jpg" alt="T'boli T'nalak weaver at Lake Sebu, South Cotabato" class="content-image">
+                  <figcaption>
+                    <span class="cap-text">T'boli T'nalak weaver, Lake Sebu</span>
+                    <a class="cap-src" href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+                  </figcaption>
+                </figure>
+                <figure class="img-wrap">
+                  <img src="../images/tinikling.gif" alt="Tinikling dance performance by Muntinlupa Dance Company" class="content-image">
+                  <figcaption>
+                    <span class="cap-text">Tinikling — Muntinlupa Dance Company</span>
+                    <a class="cap-src" href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="row-text">
+              <p>Modern technology offers unprecedented tools for saving and safeguarding historical heritage from degradation or loss. Cultural institutions, such as the National Library of the Philippines, actively digitize centuries-old manuscripts, historical photographs, government documents, and indigenous texts to make them accessible to anyone with an internet connection.</p>
+              <div class="dyk">
+                <div class="dyk-label">Did You Know?</div>
+                <p>The T'nalak weaving tradition of the T'boli people is a centuries-old craft — each pattern is believed to be inspired by dreams, making it a living cultural heritage.</p>
+              </div>
+              <p>On a grassroots level, digital archiving projects document disappearing childhood games, regional folklore, oral histories, and traditional musical instruments. By recording these elements in high-definition video and audio formats, advocates ensure that intangible heritage survives amidst rapid urbanization and modernization.</p>
+            </div>
           </div>
-          <p>Modern technology offers unprecedented tools for saving and safeguarding historical heritage from degradation or loss. Cultural institutions, such as the National Library of the Philippines, actively digitize centuries-old manuscripts, historical photographs, government documents, and indigenous texts to make them accessible to anyone with an internet connection.</p>
-          <p>On a grassroots level, digital archiving projects document disappearing childhood games, regional folklore, oral histories, and traditional musical instruments. By recording these elements in high-definition video and audio formats, advocates ensure that intangible heritage survives amidst rapid urbanization and modernization.</p>
 
-          <h3>2. Global Reach</h3>
-          <div class="image-pair">
-            <img src="../images/barong.jpg" alt="Traditional Barong Tagalog made of piña fabric at the National Museum" class="content-image">
-            <img src="../images/adobo.jpg" alt="Filipino Adobo" class="content-image">
+          <h3 id="sec2-global">2. Global Reach</h3>
+          <div class="content-row">
+            <div class="row-text">
+              <p>The global nature of the internet allows Filipino culture to reach international audiences on an unprecedented scale. The rise of Filipino digital influencers, content creators, and artists has placed regional fashion, culinary arts, and lifestyle trends into global algorithms.</p>
+              <p>Traditional fashion items like the Barong Tagalog or hand-woven indigenous textiles (Inabel, T'nalak) gain international recognition as designers display them on global digital platforms. Similarly, the global popularity of Filipino cuisine—from Adobo to Sinigang—is fueled by viral cooking videos and food blogs that introduce global food enthusiasts to local flavors.</p>
+            </div>
+            <div class="row-img">
+              <div class="image-pair">
+                <figure class="img-wrap">
+                  <img src="../images/barong.jpg" alt="Traditional Barong Tagalog made of piña fabric at the National Museum" class="content-image">
+                  <figcaption>
+                    <span class="cap-text">Barong Tagalog — piña fabric, National Museum</span>
+                    <a class="cap-src" href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+                  </figcaption>
+                </figure>
+                <figure class="img-wrap">
+                  <img src="../images/adobo.jpg" alt="Filipino Adobo" class="content-image">
+                  <figcaption>
+                    <span class="cap-text">Filipino Adobo — a signature dish</span>
+                    <a class="cap-src" href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
           </div>
-          <p>The global nature of the internet allows Filipino culture to reach international audiences on an unprecedented scale. The rise of Filipino digital influencers, content creators, and artists has placed regional fashion, culinary arts, and lifestyle trends into global algorithms.</p>
-          <p>Traditional fashion items like the Barong Tagalog or hand-woven indigenous textiles (Inabel, T'nalak) gain international recognition as designers display them on global digital platforms. Similarly, the global popularity of Filipino cuisine—from Adobo to Sinigang—is fueled by viral cooking videos and food blogs that introduce global food enthusiasts to local flavors.</p>
 
-          <h3>3. Younger Generation</h3>
-          <img src="../images/tumbang-preso.jpg" alt="Filipino children playing Tumbang Preso" class="content-image">
-          <p>For youth navigating an increasingly globalized world, digital platforms are often their primary gateway to cultural rediscovery. While there are concerns about screen time replacing physical outdoor traditions, digital adaptations are bridging the gap.</p>
-          <p>Traditional games like Laro ng Lahi (e.g., Patintero, Tumbang Preso) are being re-imagined through digital apps and animated media. Younger content creators frequently use modern storytelling mediums to break down history, explain cultural customs, and encourage their peers to take pride in their roots.</p>
+          <h3 id="sec2-youth">3. Younger Generation</h3>
+          <div class="content-row">
+            <div class="row-img">
+              <figure class="img-wrap">
+                <img src="../images/tumbang-preso.jpg" alt="Filipino children playing Tumbang Preso" class="content-image">
+                <figcaption>
+                  <span class="cap-text">Tumbang Preso — traditional Filipino game</span>
+                  <a class="cap-src" href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+                </figcaption>
+              </figure>
+            </div>
+            <div class="row-text">
+              <p>For youth navigating an increasingly globalized world, digital platforms are often their primary gateway to cultural rediscovery. While there are concerns about screen time replacing physical outdoor traditions, digital adaptations are bridging the gap.</p>
+              <div class="dyk">
+                <div class="dyk-label">Did You Know?</div>
+                <p>Patintero and Tumbang Preso are examples of <em>Laro ng Lahi</em> — traditional Filipino games passed down through generations.</p>
+              </div>
+              <p>Traditional games like Laro ng Lahi (e.g., Patintero, Tumbang Preso) are being re-imagined through digital apps and animated media. Younger content creators frequently use modern storytelling mediums to break down history, explain cultural customs, and encourage their peers to take pride in their roots.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card topic" id="comparison">
+          <h2>Traditional vs. Digital</h2>
+          <p style="color:var(--text-muted);font-size:13px;margin:0 0 12px;">How Filipino culture has evolved across eras.</p>
+          <table class="compare-table">
+            <thead>
+              <tr><th>Traditional</th><th></th><th>Digital</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Bayanihan</td><td class="arrow-col">&rarr;</td><td>Online communities &amp; mutual aid groups</td></tr>
+              <tr><td>Oral storytelling</td><td class="arrow-col">&rarr;</td><td>TikTok / YouTube / podcasts</td></tr>
+              <tr><td>Baybayin / Filipino script</td><td class="arrow-col">&rarr;</td><td>Taglish / internet slang</td></tr>
+              <tr><td>Physical games (Laro ng Lahi)</td><td class="arrow-col">&rarr;</td><td>Digital adaptations &amp; apps</td></tr>
+              <tr><td>Handwoven textiles (Inabel, T'nalak)</td><td class="arrow-col">&rarr;</td><td>Online/global fashion platforms</td></tr>
+              <tr><td>Filipino recipes passed down</td><td class="arrow-col">&rarr;</td><td>Food blogs &amp; cooking videos</td></tr>
+            </tbody>
+          </table>
         </div>
 
         <div class="card topic" id="sec3">
           <h2>Section 3: Benefits &amp; Challenges</h2>
 
+          <div class="balance-layout">
+            <div class="balance-top">Digital Age</div>
+            <div class="balance-stem"></div>
+            <div class="balance-cols">
+              <div class="balance-col benefits">
+                <h4>Benefits</h4>
+                <ul>
+                  <li>Online learning &amp; remote work</li>
+                  <li>Digital commerce</li>
+                  <li>Amplified expression</li>
+                  <li>Government efficiency</li>
+                </ul>
+              </div>
+              <div class="balance-col challenges">
+                <h4>Challenges</h4>
+                <ul>
+                  <li>Digital divide</li>
+                  <li>Privacy &amp; online harms</li>
+                  <li>Misinformation</li>
+                  <li>Cultural erosion</li>
+                </ul>
+              </div>
+            </div>
+            <div class="balance-stem-down"></div>
+            <div class="balance-bottom">Finding the Balance</div>
+          </div>
+
           <h3>Benefits</h3>
-          <img src="../images/online-class.jpg" alt="Filipino students during online learning" class="content-image">
-          <ul>
-            <li><strong>Socio-Economic Resilience:</strong> Digital technologies have proven essential during crises, enabling remote work, online learning, and digital commerce that keep local communities economically active.</li>
-            <li><strong>Government Efficiency:</strong> Modernization initiatives within the public sector streamline bureaucratic procedures, providing citizens with easier access to vital government services and records.</li>
-            <li><strong>Amplified Expression:</strong> Digital tools democratize media creation, giving voice to marginalized regional communities, artists, and grassroots movements that historically lacked mainstream representation.</li>
-          </ul>
+          <div class="content-row">
+            <div class="row-text">
+              <ul style="margin:0;padding-left:18px;color:var(--text-muted);font-size:13px;line-height:1.7;">
+                <li><strong>Socio-Economic Resilience:</strong> Digital technologies have proven essential during crises, enabling remote work, online learning, and digital commerce that keep local communities economically active.</li>
+                <li><strong>Government Efficiency:</strong> Modernization initiatives within the public sector streamline bureaucratic procedures, providing citizens with easier access to vital government services and records.</li>
+                <li><strong>Amplified Expression:</strong> Digital tools democratize media creation, giving voice to marginalized regional communities, artists, and grassroots movements that historically lacked mainstream representation.</li>
+              </ul>
+            </div>
+            <div class="row-img">
+              <figure class="img-wrap">
+                <img src="../images/online-class.jpg" alt="Filipino students during online learning" class="content-image">
+                <figcaption>
+                  <span class="cap-text">Filipino students during online learning</span>
+                  <a class="cap-src" href="https://www.philstar.com" target="_blank" rel="noopener">Philstar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+                </figcaption>
+              </figure>
+            </div>
+          </div>
 
           <h3>Challenges</h3>
-          <img src="../images/internet-inequality.jpg" alt="Internet inequality in the Philippines" class="content-image">
-          <ul>
-            <li><strong>Digital Divide &amp; Connectivity Gaps:</strong> Unequal internet access across rural and urban sectors creates educational and economic disparities, leaving under-resourced communities behind.</li>
-            <li><strong>Online Harms &amp; Privacy:</strong> Navigating digital platforms exposes users to algorithmic risks, online harassment, data privacy violations, and misinformation that can strain social trust.</li>
-            <li><strong>Cultural Erosion Risks:</strong> Constant exposure to globalized media can lead to the gradual dilution of localized dialects, regional customs, and unique historical traditions among younger generations.</li>
-          </ul>
+          <div class="content-row">
+            <div class="row-img">
+              <figure class="img-wrap">
+                <img src="../images/internet-inequality.jpg" alt="Internet inequality in the Philippines" class="content-image">
+                <figcaption>
+                  <span class="cap-text">Internet inequality in the Philippines</span>
+                  <a class="cap-src" href="https://theaseanpost.com" target="_blank" rel="noopener">The ASEAN Post <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+                </figcaption>
+              </figure>
+            </div>
+            <div class="row-text">
+              <ul style="margin:0;padding-left:18px;color:var(--text-muted);font-size:13px;line-height:1.7;">
+                <li><strong>Digital Divide &amp; Connectivity Gaps:</strong> Unequal internet access across rural and urban sectors creates educational and economic disparities, leaving under-resourced communities behind.</li>
+                <li><strong>Online Harms &amp; Privacy:</strong> Navigating digital platforms exposes users to algorithmic risks, online harassment, data privacy violations, and misinformation that can strain social trust.</li>
+                <li><strong>Cultural Erosion Risks:</strong> Constant exposure to globalized media can lead to the gradual dilution of localized dialects, regional customs, and unique historical traditions among younger generations.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
 
-          <h3>Finding the Balance</h3>
-          <p>Maintaining an authentic cultural identity requires intentional digital citizenship. Embracing technological progress should not come at the expense of foundational heritage. Striking a balance involves using online tools to promote unity, education, and progress while consciously protecting localized values, respect for elders, and face-to-face community relationships.</p>
+        <div class="card climax-card" id="balance-climax">
+          <h2>"Finding the Balance"</h2>
+          <div class="climax-divider"></div>
+          <p>Filipino culture has always adapted — from oral tradition to print, from radio to the internet. The challenge today is not whether to embrace technology, but how to use it while protecting the values, language, and community spirit that make the Philippines unique. Technology is a tool; culture is the soul.</p>
         </div>
 
         <div class="card topic" id="reflection">
@@ -971,7 +1672,13 @@
             <li><strong>Promote Inclusivity:</strong> Advocate for digital access in underserved areas so all Filipinos can participate equally in the modern digital economy.</li>
             <li><strong>Practice Responsible Digital Citizenship:</strong> Foster supportive, respectful online environments that embody the true spirit of bayanihan.</li>
           </ul>
-          <img src="../images/bayanihan.jpg" alt="Filipino community practicing bayanihan" class="content-image content-image-sm">
+          <figure class="img-wrap" style="max-width:420px;margin:16px auto 0;">
+            <img src="../images/bayanihan.jpg" alt="Filipino community practicing bayanihan" class="content-image content-image-sm">
+            <figcaption>
+              <span class="cap-text">Bayanihan — the spirit of communal unity</span>
+              <a class="cap-src" href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+            </figcaption>
+          </figure>
         </div>
 
         <div class="card topic" id="hyperlinks">
@@ -1198,8 +1905,69 @@
               </li>
             </ul>
           </div>
+
+          <h3 style="margin-top:24px;">Image Credits</h3>
+          <p style="color:var(--text-muted);font-size:13px;margin:0 0 12px;">Where each photo used on this page was sourced from.</p>
+          <div class="ref-group">
+            <ul class="ref-list">
+              <li>
+                <span class="ref-url">Bayanihan — Wikimedia Commons</span>
+                <a class="ref-link-btn" href="https://commons.wikimedia.org" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+              <li>
+                <span class="ref-url">Internet Caf&eacute;s — Photo by Justin Lim (Unsplash)</span>
+                <a class="ref-link-btn" href="https://unsplash.com" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+              <li>
+                <span class="ref-url">Taglish — Wikimedia Commons</span>
+                <a class="ref-link-btn" href="https://commons.wikimedia.org" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+              <li>
+                <span class="ref-url">Baybayin — Wikimedia Commons</span>
+                <a class="ref-link-btn" href="https://commons.wikimedia.org" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+              <li>
+                <span class="ref-url">T'nalak Weaver — Wikimedia Commons</span>
+                <a class="ref-link-btn" href="https://commons.wikimedia.org" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+              <li>
+                <span class="ref-url">Tinikling — Muntinlupa Dance Company (Wikimedia)</span>
+                <a class="ref-link-btn" href="https://commons.wikimedia.org" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+              <li>
+                <span class="ref-url">Barong Tagalog — Wikimedia Commons</span>
+                <a class="ref-link-btn" href="https://commons.wikimedia.org" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+              <li>
+                <span class="ref-url">Adobo — Wikimedia Commons</span>
+                <a class="ref-link-btn" href="https://commons.wikimedia.org" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+              <li>
+                <span class="ref-url">Tumbang Preso — Wikimedia Commons</span>
+                <a class="ref-link-btn" href="https://commons.wikimedia.org" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+              <li>
+                <span class="ref-url">Online Class — Philstar</span>
+                <a class="ref-link-btn" href="https://www.philstar.com" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+              <li>
+                <span class="ref-url">Internet Inequality — The ASEAN Post</span>
+                <a class="ref-link-btn" href="https://theaseanpost.com" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+            </ul>
+          </div>
         </div>
       </section>
+    </div>
+
+    <button id="backToTop" title="Back to top">&#9650;</button>
+
+    <div class="lightbox-overlay" id="lightbox" hidden>
+      <button class="lightbox-close" id="lbClose">&times;</button>
+      <button class="lightbox-nav lightbox-prev" id="lbPrev">&#8249;</button>
+      <button class="lightbox-nav lightbox-next" id="lbNext">&#8250;</button>
+      <img class="lightbox-img" id="lbImg" src="" alt="">
+      <div class="lightbox-cap" id="lbCap"></div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
@@ -1316,6 +2084,50 @@
           }, 1500);
         }, 4000);
 
+        // ---- Page transitions ----
+        // Initial load uses .turn to reveal this page. Navigation uses a
+        // separate state so the old page is never exposed during the wait.
+        var pageMessages = {
+          "../team/": "Opening the team archive...",
+          "../": "Returning to the archive...",
+          "team/": "Opening the team archive..."
+        };
+        var isNavigating = false;
+
+        document.querySelectorAll('a[href]').forEach(function (link) {
+          link.addEventListener("click", function (e) {
+            var href = link.getAttribute("href");
+            if (
+              !href ||
+              href.startsWith("#") ||
+              link.target === "_blank" ||
+              href.startsWith("javascript:") ||
+              href.startsWith("mailto:") ||
+              link.hasAttribute("download") ||
+              isNavigating
+            ) return;
+
+            e.preventDefault();
+            isNavigating = true;
+
+            loaderText.textContent = pageMessages[href] || "Preparing the next page...";
+
+            // Show the opaque cover immediately. Do NOT add .turn here: .turn
+            // rotates the cover away and was causing the 1-second old-page flash.
+            loader.classList.remove("turn");
+            loader.classList.add("nav-transition");
+            loader.style.display = "flex";
+
+            // Restart the child animation.
+            void loader.offsetWidth;
+
+            // Leave enough time for the animation, then navigate directly.
+            setTimeout(function () {
+              window.location.assign(href);
+            }, 850);
+          });
+        });
+
         var root = document.documentElement;
         var toggle = document.getElementById("themeToggle");
         var label = document.getElementById("themeLabel");
@@ -1385,8 +2197,13 @@
         function setActive(id) {
           document.querySelectorAll(".nav-item").forEach(function (n) { n.classList.remove("active"); });
           var attr = (id === "sec1" || id === "sec2" || id === "sec3") ? "nav-" + id : id;
-          var el = document.querySelector('.nav-item[data-target="' + attr + '"]:not(.nav-sub)');
+          var el = document.querySelector('.nav-item[data-target="' + attr + '"]');
           if (el) el.classList.add("active");
+          if (id.startsWith("sec1-") || id.startsWith("sec2-")) {
+            var parent = id.startsWith("sec1-") ? "sec1" : "sec2";
+            var parentEl = document.querySelector('.nav-item[data-target="nav-' + parent + '"]');
+            if (parentEl) parentEl.classList.add("active");
+          }
         }
 
         function updateProgress() {
@@ -1414,6 +2231,105 @@
         window.addEventListener("scroll", updateProgress, { passive: true });
         updateProgress();
         setActive("top");
+
+        // ---- Lightbox ----
+        var lb = document.getElementById("lightbox");
+        var lbImg = document.getElementById("lbImg");
+        var lbCap = document.getElementById("lbCap");
+        var figures = Array.from(document.querySelectorAll("figure.img-wrap"));
+        var lbIndex = 0;
+
+        function showLb(i) {
+          lbIndex = i;
+          var fig = figures[i];
+          var img = fig.querySelector("img");
+          var cap = fig.querySelector("figcaption .cap-text");
+          lbImg.src = img.src;
+          lbImg.alt = img.alt;
+          lbCap.textContent = cap ? cap.textContent : "";
+          lb.hidden = false;
+        }
+        function closeLb() { lb.hidden = true; }
+
+        figures.forEach(function (fig, i) {
+          fig.addEventListener("click", function () { showLb(i); });
+        });
+        document.getElementById("lbClose").addEventListener("click", closeLb);
+        lb.addEventListener("click", function (e) { if (e.target === lb) closeLb(); });
+        document.getElementById("lbPrev").addEventListener("click", function (e) {
+          e.stopPropagation(); showLb((lbIndex - 1 + figures.length) % figures.length);
+        });
+        document.getElementById("lbNext").addEventListener("click", function (e) {
+          e.stopPropagation(); showLb((lbIndex + 1) % figures.length);
+        });
+        document.addEventListener("keydown", function (e) {
+          if (lb.hidden) return;
+          if (e.key === "Escape") closeLb();
+          if (e.key === "ArrowLeft") showLb((lbIndex - 1 + figures.length) % figures.length);
+          if (e.key === "ArrowRight") showLb((lbIndex + 1) % figures.length);
+        });
+
+        // ---- Timeline ----
+        var tlDetail = document.getElementById("tlDetail");
+        document.querySelectorAll(".tl-node").forEach(function (node) {
+          node.addEventListener("click", function () {
+            document.querySelectorAll(".tl-node").forEach(function (n) { n.classList.remove("active"); });
+            node.classList.add("active");
+            tlDetail.textContent = node.getAttribute("data-text");
+          });
+        });
+
+        // ---- Culture Map ----
+        var mapInfo = document.getElementById("mapInfo");
+        var mapData = {
+          luzon: {
+            title: "Luzon",
+            desc: "Home to Manila, the cultural and economic heart of the Philippines. Luzon is where modern digital culture meets deep historical roots.",
+            items: ["Manila — social media capital", "Banaue Rice Terraces (Ifugao)", "Pahiyas Festival (Quezon)", "Barong Tagalog formal wear"]
+          },
+          visayas: {
+            title: "Visayas",
+            desc: "The central islands are rich in festivals, languages, and traditions. Cebu and Iloilo are major cultural hubs blending heritage with modernity.",
+            items: ["Sinulog Festival (Cebu)", "Dinagyang Festival (Iloilo)", "Lechon — roasted pig tradition", "Hiligaynon & Cebuano languages"]
+          },
+          mindanao: {
+            title: "Mindanao",
+            desc: "The southern Philippines is home to diverse indigenous cultures, including the T'boli, Maranao, and Bagobo peoples, with rich weaving and musical traditions.",
+            items: ["T'nalak weaving (T'boli)", "Royal Maranao culture", "Kadayawan Festival (Davao)", "Datu — traditional leadership"]
+          }
+        };
+        document.querySelectorAll(".map-region").forEach(function (region) {
+          region.addEventListener("click", function () {
+            document.querySelectorAll(".map-region").forEach(function (r) { r.classList.remove("active"); });
+            region.classList.add("active");
+            var key = region.id.replace("region-", "");
+            var d = mapData[key];
+            mapInfo.innerHTML = "<h4>" + d.title + "</h4><p>" + d.desc + "</p><ul>" + d.items.map(function (i) { return "<li>" + i + "</li>"; }).join("") + "</ul>";
+          });
+        });
+
+        // ---- Scroll reveal ----
+        var revealEls = document.querySelectorAll(".card.topic, .card.climax-card, .content-row, .dyk, .timeline-card, .compare-table");
+        revealEls.forEach(function (el) { el.classList.add("reveal"); });
+        var revealObs = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) {
+              e.target.classList.add("visible");
+              revealObs.unobserve(e.target);
+            }
+          });
+        }, { threshold: 0.1 });
+        revealEls.forEach(function (el) { revealObs.observe(el); });
+
+        // ---- Back to top ----
+        var btt = document.getElementById("backToTop");
+        scroller.addEventListener("scroll", function () {
+          if (scroller.scrollTop > 400) btt.classList.add("show");
+          else btt.classList.remove("show");
+        });
+        btt.addEventListener("click", function () {
+          scroller.scrollTo({ top: 0, behavior: "smooth" });
+        });
       })();
     </script>
   </body>

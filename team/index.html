@@ -115,6 +115,8 @@
         text-align: center;
         cursor: pointer;
         transition: transform 0.15s ease, border-color 0.15s ease;
+        position: relative;
+        overflow: hidden;
       }
       .member:hover { transform: translateY(-4px); border-color: var(--accent); }
       .avatar {
@@ -178,28 +180,174 @@
         border-top: 1px solid var(--border);
       }
 
+      /* ===== PARTICLES ===== */
+      .particle-canvas {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 200;
+      }
+
+      /* ===== SCREEN SHAKE ===== */
+      body.shake {
+        animation: screenShake 0.5s ease;
+      }
+      @keyframes screenShake {
+        0%, 100% { transform: translate(0); }
+        10% { transform: translate(-6px, 4px); }
+        20% { transform: translate(5px, -3px); }
+        30% { transform: translate(-4px, 5px); }
+        40% { transform: translate(6px, -2px); }
+        50% { transform: translate(-3px, 3px); }
+        60% { transform: translate(4px, -4px); }
+        70% { transform: translate(-2px, 2px); }
+        80% { transform: translate(3px, -1px); }
+        90% { transform: translate(-1px, 1px); }
+      }
+
+      /* ===== GLITCH ===== */
+      body.glitch-active {
+        animation: glitchScreen 0.4s ease;
+      }
+      @keyframes glitchScreen {
+        0% { filter: none; }
+        10% { filter: hue-rotate(90deg) saturate(2); transform: translate(3px, -2px); }
+        20% { filter: hue-rotate(-60deg) contrast(1.5); transform: translate(-4px, 1px); }
+        30% { filter: hue-rotate(180deg) saturate(3); transform: translate(2px, 3px); }
+        40% { filter: invert(0.1) hue-rotate(45deg); transform: translate(-1px, -3px); }
+        50% { filter: hue-rotate(-120deg) brightness(1.3); transform: translate(4px, 2px); }
+        60% { filter: saturate(0.5) contrast(2); transform: translate(-3px, -1px); }
+        70% { filter: hue-rotate(60deg); transform: translate(1px, 4px); }
+        80% { filter: hue-rotate(-30deg) saturate(1.5); transform: translate(-2px, -2px); }
+        90% { filter: hue-rotate(15deg); transform: translate(1px, 1px); }
+        100% { filter: none; transform: translate(0); }
+      }
+
+      /* ===== MODAL ===== */
       .modal-overlay {
         position: fixed;
         inset: 0;
-        background: rgba(0, 0, 0, 0.55);
+        background: rgba(0, 0, 0, 0.7);
         display: flex;
         align-items: center;
         justify-content: center;
         padding: 24px;
-        z-index: 100;
+        z-index: 150;
+        opacity: 0;
+        transition: opacity 0.3s ease;
       }
       .modal-overlay[hidden] { display: none; }
+      .modal-overlay.show { opacity: 1; }
+
       .modal {
         background: var(--surface);
         border: 1px solid var(--border);
         border-radius: 18px;
-        padding: 34px 28px 30px;
-        max-width: 380px;
+        padding: 40px 32px 36px;
+        max-width: 420px;
         width: 100%;
         text-align: center;
         position: relative;
-        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+        overflow: hidden;
       }
+
+      /* --- Card slam animation --- */
+      .modal.slam {
+        animation: cardSlam 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      }
+      @keyframes cardSlam {
+        0% { transform: scale(0.3) rotateX(20deg); opacity: 0; }
+        60% { transform: scale(1.08) rotateX(-2deg); opacity: 1; }
+        80% { transform: scale(0.97) rotateX(1deg); }
+        100% { transform: scale(1) rotateX(0deg); }
+      }
+
+      /* --- 3D Flip --- */
+      .modal.flip {
+        animation: cardFlip3D 0.8s ease forwards;
+      }
+      @keyframes cardFlip3D {
+        0% { transform: perspective(800px) rotateY(0deg) scale(0.8); opacity: 0; }
+        40% { transform: perspective(800px) rotateY(180deg) scale(0.9); opacity: 0.5; }
+        100% { transform: perspective(800px) rotateY(360deg) scale(1); opacity: 1; }
+      }
+
+      /* --- Spotlight enlarge --- */
+      .modal.spotlight {
+        animation: spotlightReveal 0.6s ease forwards;
+      }
+      @keyframes spotlightReveal {
+        0% { transform: scale(0.5); opacity: 0; box-shadow: 0 0 0 rgba(217,160,102,0); }
+        50% { transform: scale(1.1); box-shadow: 0 0 80px rgba(217,160,102,0.5); }
+        100% { transform: scale(1); opacity: 1; box-shadow: 0 0 120px rgba(217,160,102,0.3); }
+      }
+
+      /* --- Spin collectible --- */
+      .modal.spin {
+        animation: collectibleSpin 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      }
+      @keyframes collectibleSpin {
+        0% { transform: scale(0.4) rotate(0deg); opacity: 0; }
+        30% { transform: scale(1.1) rotate(360deg); opacity: 1; }
+        50% { transform: scale(0.95) rotate(700deg); }
+        70% { transform: scale(1.05) rotate(1060deg); }
+        100% { transform: scale(1) rotate(1080deg); }
+      }
+
+      /* --- Glitch modal --- */
+      .modal.glitch-reveal {
+        animation: glitchReveal 0.6s ease forwards;
+      }
+      @keyframes glitchReveal {
+        0% { transform: translate(0) scale(0.8); opacity: 0; filter: hue-rotate(0deg); }
+        15% { transform: translate(10px, -5px) scale(1.05); opacity: 1; filter: hue-rotate(90deg); }
+        30% { transform: translate(-8px, 3px) scale(0.95); filter: hue-rotate(-60deg) saturate(2); }
+        45% { transform: translate(5px, -8px) scale(1.02); filter: hue-rotate(180deg); }
+        60% { transform: translate(-3px, 5px) scale(0.98); filter: hue-rotate(-120deg) contrast(1.5); }
+        75% { transform: translate(2px, -2px) scale(1.01); filter: hue-rotate(30deg); }
+        100% { transform: translate(0) scale(1); opacity: 1; filter: none; }
+      }
+
+      /* --- Explode --- */
+      .modal.explode {
+        animation: explodeReveal 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      }
+      @keyframes explodeReveal {
+        0% { transform: scale(0); opacity: 0; border-radius: 50%; }
+        50% { transform: scale(1.15); border-radius: 18px; }
+        70% { transform: scale(0.95); }
+        100% { transform: scale(1); opacity: 1; }
+      }
+
+      /* --- Easter egg: giant spin --- */
+      .modal.giant-spin {
+        animation: giantSpin 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      }
+      @keyframes giantSpin {
+        0% { transform: scale(0.1) rotate(0deg); opacity: 0; }
+        30% { transform: scale(1.3) rotate(720deg); opacity: 1; }
+        60% { transform: scale(0.9) rotate(1400deg); }
+        100% { transform: scale(1) rotate(1440deg); }
+      }
+
+      /* --- Easter egg: bounce --- */
+      .modal.bounce-reveal {
+        animation: bounceReveal 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      }
+      @keyframes bounceReveal {
+        0% { transform: translateY(-200vh) scale(0.5); opacity: 0; }
+        50% { transform: translateY(20px) scale(1.1); opacity: 1; }
+        70% { transform: translateY(-10px) scale(0.95); }
+        85% { transform: translateY(5px) scale(1.02); }
+        100% { transform: translateY(0) scale(1); }
+      }
+
+      /* --- Modal spotlight background --- */
+      .modal-overlay.spotlight-bg {
+        background: radial-gradient(circle at 50% 50%, rgba(217,160,102,0.15) 0%, rgba(0,0,0,0.7) 60%);
+      }
+
       .modal-close {
         position: absolute;
         top: 12px;
@@ -210,14 +358,16 @@
         font-size: 26px;
         line-height: 1;
         cursor: pointer;
+        z-index: 10;
       }
       .modal-close:hover { color: var(--text); }
+
       .modal-avatar {
         position: relative;
         width: 160px;
         height: 160px;
         border-radius: 50%;
-        margin: 0 auto 18px;
+        margin: 0 auto 20px;
         overflow: hidden;
         display: flex;
         align-items: center;
@@ -226,6 +376,13 @@
         font-weight: 700;
         color: #1c140f;
         background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+        opacity: 0;
+        transform: scale(0.5);
+        transition: opacity 0.4s ease 0.3s, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s;
+      }
+      .modal.reveal-avatar .modal-avatar {
+        opacity: 1;
+        transform: scale(1);
       }
       .modal-avatar img {
         position: absolute;
@@ -234,17 +391,54 @@
         height: 100%;
         object-fit: cover;
       }
-      .modal h2 { margin: 0; font-size: 22px; }
-      .modal-role {
-        margin: 6px 0 14px;
+
+      .reveal-name, .reveal-role, .reveal-about, .reveal-contribution, .reveal-funfact {
+        opacity: 0;
+        transform: translateY(15px);
+        transition: opacity 0.4s ease, transform 0.4s ease;
+      }
+      .modal.show-name .reveal-name { opacity: 1; transform: translateY(0); transition-delay: 0.5s; }
+      .modal.show-role .reveal-role { opacity: 1; transform: translateY(0); transition-delay: 0.65s; }
+      .modal.show-about .reveal-about { opacity: 1; transform: translateY(0); transition-delay: 0.8s; }
+      .modal.show-contribution .reveal-contribution { opacity: 1; transform: translateY(0); transition-delay: 0.95s; }
+      .modal.show-funfact .reveal-funfact { opacity: 1; transform: translateY(0); transition-delay: 1.1s; }
+
+      .reveal-name h2 { margin: 0; font-size: 24px; }
+      .reveal-role .modal-role {
+        margin: 6px 0 16px;
         font-size: 13px;
         font-weight: 600;
         letter-spacing: 0.04em;
         text-transform: uppercase;
         color: var(--accent);
       }
-      .modal-bio { margin: 0; font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+      .reveal-about .modal-bio,
+      .reveal-contribution .modal-bio,
+      .reveal-funfact .modal-bio {
+        margin: 0 0 10px;
+        font-size: 14px;
+        color: var(--text-muted);
+        line-height: 1.6;
+        text-align: left;
+      }
+      .reveal-contribution .modal-bio strong,
+      .reveal-funfact .modal-bio strong {
+        color: var(--text);
+      }
+      .modal-funfact {
+        margin-top: 14px;
+        padding: 12px 16px;
+        background: var(--surface-2);
+        border-radius: 10px;
+        border: 1px dashed var(--accent);
+        text-align: left;
+      }
+      .modal-funfact .modal-bio {
+        margin: 0;
+        font-style: italic;
+      }
 
+      /* ===== LOADER ===== */
       .loader {
         position: fixed;
         inset: 0;
@@ -301,6 +495,9 @@
       <h1 class="loader-title">Filipino in Modern Times</h1>
       <div class="loader-text" id="loaderText">Returning to the archive...</div>
     </div>
+
+    <canvas class="particle-canvas" id="particleCanvas"></canvas>
+
     <header class="topbar">
       <a class="brand" href="../home/">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
@@ -321,7 +518,7 @@
     </section>
 
     <main class="team">
-      <article class="member" data-img="../Designer.png">
+      <article class="member" data-img="../Designer.png" data-anim="explode" data-contribution="Designed every visual element from the parchment texture to the typography system." data-funfact="Can spend 3 hours picking the perfect font pairing and calls it 'research'.">
         <div class="avatar"><img src="../Designer.png" alt="Vallejos Designer and visual lead of Filipino in Modern Times" onerror="this.style.display='none'">VA</div>
         <h3>Vallejos</h3>
         <p class="role">Designer</p>
@@ -332,7 +529,7 @@
         </div>
       </article>
 
-      <article class="member" data-img="../Ledesma.png">
+      <article class="member" data-img="../Ledesma.png" data-anim="flip" data-contribution="Researched and verified every cultural reference to keep the archive accurate and respectful." data-funfact="Reads academic papers for fun and has a spreadsheet of 200+ Filipino culture sources.">
         <div class="avatar"><img src="../Ledesma.png" alt="Ledesma Researcher who curates sources and verifies cultural references" onerror="this.style.display='none'">LE</div>
         <h3>Ledesma</h3>
         <p class="role">Researcher</p>
@@ -343,7 +540,7 @@
         </div>
       </article>
 
-      <article class="member" data-img="../Pia.png">
+      <article class="member" data-img="../Pia.png" data-anim="shake" data-contribution="Wrote the narrative voice that ties research into warm, engaging storytelling." data-funfact="Has a habit of narrating everyday life like a documentary narrator.">
         <div class="avatar"><img src="../Pia.png" alt="Pia Writer who turns research into warm storytelling" onerror="this.style.display='none'">PI</div>
         <h3>Pia</h3>
         <p class="role">Writer</p>
@@ -354,7 +551,7 @@
         </div>
       </article>
 
-      <article class="member" data-img="../Tabay.png">
+      <article class="member" data-img="../Tabay.png" data-anim="spotlight" data-contribution="Built the core site structure, scroll system, and interactive features from scratch." data-funfact="Debugs code at 3 AM with coffee and calls it 'night shift heritage work'.">
         <div class="avatar"><img src="../Tabay.png" alt="Tabay Developer who builds and maintains the site" onerror="this.style.display='none'">TA</div>
         <h3>Tabay</h3>
         <p class="role">Developer</p>
@@ -365,7 +562,7 @@
         </div>
       </article>
 
-      <article class="member" data-img="../Balazo.png">
+      <article class="member" data-img="../Balazo.png" data-anim="glitch" data-contribution="Optimized performance, accessibility, and kept the codebase clean and maintainable." data-funfact="Once fixed a bug in their sleep and committed it the next morning without remembering.">
         <div class="avatar"><img src="../Balazo.png" alt="Balazo Developer who implements features and keeps the site fast" onerror="this.style.display='none'">BA</div>
         <h3>Balazo</h3>
         <p class="role">Developer</p>
@@ -376,7 +573,7 @@
         </div>
       </article>
 
-      <article class="member" data-img="../Limchiu.png">
+      <article class="member" data-img="../Limchiu.png" data-anim="spin" data-contribution="Presents the project on stage and brings Filipino culture to new audiences." data-funfact="Gives presentations with the energy of a festival MC even in team meetings.">
         <div class="avatar"><img src="../Limchiu.png" alt="Limchiu Presenter who shares Filipino in Modern Times with new audiences" onerror="this.style.display='none'">LI</div>
         <h3>Limchiu</h3>
         <p class="role">Presenter</p>
@@ -400,47 +597,175 @@
       <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalName">
         <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
         <div class="modal-avatar"><img id="modalImg" src="" alt="" /><span id="modalInitials"></span></div>
-        <h2 id="modalName"></h2>
-        <p class="modal-role" id="modalRole"></p>
-        <p class="modal-bio" id="modalBio"></p>
+        <div class="reveal-name"><h2 id="modalName"></h2></div>
+        <div class="reveal-role"><p class="modal-role" id="modalRole"></p></div>
+        <div class="reveal-about"><p class="modal-bio" id="modalBio"></p></div>
+        <div class="reveal-contribution"><p class="modal-bio" id="modalContribution"></p></div>
+        <div class="reveal-funfact">
+          <div class="modal-funfact">
+            <p class="modal-bio" id="modalFunfact"></p>
+          </div>
+        </div>
       </div>
     </div>
 
     <script>
       (function () {
         var modal = document.getElementById("memberModal");
+        var modalDialog = modal.querySelector(".modal");
         var modalImg = document.getElementById("modalImg");
         var modalInitials = document.getElementById("modalInitials");
         var modalName = document.getElementById("modalName");
         var modalRole = document.getElementById("modalRole");
         var modalBio = document.getElementById("modalBio");
+        var modalContribution = document.getElementById("modalContribution");
+        var modalFunfact = document.getElementById("modalFunfact");
         var modalClose = document.getElementById("modalClose");
 
         modalImg.onerror = function () { this.style.display = "none"; };
 
-        function openMember(card) {
-          var avatar = card.querySelector(".avatar");
+        // ---- Particle system ----
+        var canvas = document.getElementById("particleCanvas");
+        var ctx = canvas.getContext("2d");
+        var particles = [];
+        var animFrame = null;
+
+        function resizeCanvas() {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener("resize", resizeCanvas);
+
+        function Particle(x, y, color) {
+          this.x = x;
+          this.y = y;
+          this.vx = (Math.random() - 0.5) * 14;
+          this.vy = (Math.random() - 0.5) * 14 - 3;
+          this.life = 1;
+          this.decay = 0.012 + Math.random() * 0.015;
+          this.size = 3 + Math.random() * 5;
+          this.color = color || "#d9a066";
+          this.rotation = Math.random() * Math.PI * 2;
+          this.rotSpeed = (Math.random() - 0.5) * 0.3;
+        }
+
+        function spawnParticles(x, y, count, colors) {
+          for (var i = 0; i < count; i++) {
+            var c = colors[Math.floor(Math.random() * colors.length)];
+            particles.push(new Particle(x, y, c));
+          }
+          if (!animFrame) animateParticles();
+        }
+
+        function animateParticles() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          for (var i = particles.length - 1; i >= 0; i--) {
+            var p = particles[i];
+            p.x += p.vx;
+            p.y += p.vy;
+            p.vy += 0.15;
+            p.vx *= 0.98;
+            p.life -= p.decay;
+            p.rotation += p.rotSpeed;
+            if (p.life <= 0) { particles.splice(i, 1); continue; }
+            ctx.save();
+            ctx.translate(p.x, p.y);
+            ctx.rotate(p.rotation);
+            ctx.globalAlpha = p.life;
+            ctx.fillStyle = p.color;
+            ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+            ctx.restore();
+          }
+          if (particles.length > 0) {
+            animFrame = requestAnimationFrame(animateParticles);
+          } else {
+            animFrame = null;
+          }
+        }
+
+        // ---- Easter egg chance ----
+        function getEasterEgg() {
+          var r = Math.random();
+          if (r < 0.05) return "giant-spin";
+          if (r < 0.10) return "bounce";
+          return null;
+        }
+
+        // ---- Open member with unique animation ----
+        function openMember(card, e) {
+          var anim = card.getAttribute("data-anim") || "slam";
+          var egg = getEasterEgg();
+          var finalAnim = egg || anim;
+
+          // Particle burst at click position
+          var rect = card.getBoundingClientRect();
+          var cx = rect.left + rect.width / 2;
+          var cy = rect.top + rect.height / 2;
+          var particleColors = ["#d9a066", "#c08457", "#efe6dc", "#e07a5f", "#81b29a", "#f2cc8f"];
+          spawnParticles(cx, cy, 40, particleColors);
+
+          // Screen effects
+          if (finalAnim === "shake") {
+            document.body.classList.add("shake");
+            setTimeout(function () { document.body.classList.remove("shake"); }, 500);
+          }
+          if (finalAnim === "glitch" || (anim === "glitch" && !egg)) {
+            document.body.classList.add("glitch-active");
+            setTimeout(function () { document.body.classList.remove("glitch-active"); }, 400);
+          }
+
+          // Spotlight background
+          modal.classList.remove("spotlight-bg");
+          if (finalAnim === "spotlight") {
+            modal.classList.add("spotlight-bg");
+          }
+
+          // Fill modal data
           modalImg.style.display = "block";
           modalImg.src = card.getAttribute("data-img") || "";
           modalImg.alt = card.querySelector("h3").textContent.trim();
-          modalInitials.textContent = avatar ? avatar.textContent.trim() : "";
+          modalInitials.textContent = card.querySelector(".avatar").textContent.trim();
           modalName.textContent = card.querySelector("h3").textContent.trim();
           var role = card.querySelector(".role");
           modalRole.textContent = role ? role.textContent.trim() : "";
           modalBio.textContent = card.querySelector(".bio").textContent.trim();
+          modalContribution.textContent = card.getAttribute("data-contribution") || "";
+          modalFunfact.textContent = "Fun fact: " + (card.getAttribute("data-funfact") || "Loves Filipino culture!");
+
+          // Reset animation classes
+          modalDialog.className = "modal";
           modal.hidden = false;
+
+          // Force reflow
+          void modalDialog.offsetWidth;
+
+          // Apply animation
+          modalDialog.classList.add(finalAnim);
+
+          // Sequential reveal
+          setTimeout(function () { modalDialog.classList.add("reveal-avatar"); }, 100);
+          setTimeout(function () { modalDialog.classList.add("show-name"); }, 100);
+          setTimeout(function () { modalDialog.classList.add("show-role"); }, 100);
+          setTimeout(function () { modalDialog.classList.add("show-about"); }, 100);
+          setTimeout(function () { modalDialog.classList.add("show-contribution"); }, 100);
+          setTimeout(function () { modalDialog.classList.add("show-funfact"); }, 100);
         }
 
-        function closeModal() { modal.hidden = true; }
+        function closeModal() {
+          modalDialog.className = "modal";
+          modal.hidden = true;
+          modal.classList.remove("spotlight-bg");
+        }
 
         document.querySelectorAll(".member").forEach(function (card) {
           card.addEventListener("click", function (e) {
             if (e.target.closest("a")) return;
-            openMember(card);
+            openMember(card, e);
           });
           card.setAttribute("tabindex", "0");
           card.addEventListener("keydown", function (e) {
-            if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openMember(card); }
+            if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openMember(card, e); }
           });
         });
 

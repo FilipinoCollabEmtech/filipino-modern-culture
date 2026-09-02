@@ -189,9 +189,7 @@
       }
 
       /* ===== SCREEN SHAKE ===== */
-      body.shake {
-        animation: screenShake 0.5s ease;
-      }
+      body.shake { animation: screenShake 0.5s ease; }
       @keyframes screenShake {
         0%, 100% { transform: translate(0); }
         10% { transform: translate(-6px, 4px); }
@@ -206,9 +204,7 @@
       }
 
       /* ===== GLITCH ===== */
-      body.glitch-active {
-        animation: glitchScreen 0.4s ease;
-      }
+      body.glitch-active { animation: glitchScreen 0.4s ease; }
       @keyframes glitchScreen {
         0% { filter: none; }
         10% { filter: hue-rotate(90deg) saturate(2); transform: translate(3px, -2px); }
@@ -223,7 +219,7 @@
         100% { filter: none; transform: translate(0); }
       }
 
-      /* ===== MODAL ===== */
+      /* ===== MODAL OVERLAY ===== */
       .modal-overlay {
         position: fixed;
         inset: 0;
@@ -233,12 +229,14 @@
         justify-content: center;
         padding: 24px;
         z-index: 150;
-        opacity: 0;
-        transition: opacity 0.3s ease;
       }
       .modal-overlay[hidden] { display: none; }
-      .modal-overlay.show { opacity: 1; }
 
+      .modal-overlay.spotlight-bg {
+        background: radial-gradient(circle at 50% 50%, rgba(217,160,102,0.15) 0%, rgba(0,0,0,0.7) 60%);
+      }
+
+      /* ===== MODAL DIALOG ===== */
       .modal {
         background: var(--surface);
         border: 1px solid var(--border);
@@ -249,105 +247,7 @@
         text-align: center;
         position: relative;
         box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
-        overflow: hidden;
       }
-
-      /* --- Card slam animation --- */
-      .modal.slam {
-        animation: cardSlam 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-      }
-      @keyframes cardSlam {
-        0% { transform: scale(0.3) rotateX(20deg); opacity: 0; }
-        60% { transform: scale(1.08) rotateX(-2deg); opacity: 1; }
-        80% { transform: scale(0.97) rotateX(1deg); }
-        100% { transform: scale(1) rotateX(0deg); }
-      }
-
-      /* --- 3D Flip --- */
-      .modal.flip {
-        animation: cardFlip3D 0.8s ease forwards;
-      }
-      @keyframes cardFlip3D {
-        0% { transform: perspective(800px) rotateY(0deg) scale(0.8); opacity: 0; }
-        40% { transform: perspective(800px) rotateY(180deg) scale(0.9); opacity: 0.5; }
-        100% { transform: perspective(800px) rotateY(360deg) scale(1); opacity: 1; }
-      }
-
-      /* --- Spotlight enlarge --- */
-      .modal.spotlight {
-        animation: spotlightReveal 0.6s ease forwards;
-      }
-      @keyframes spotlightReveal {
-        0% { transform: scale(0.5); opacity: 0; box-shadow: 0 0 0 rgba(217,160,102,0); }
-        50% { transform: scale(1.1); box-shadow: 0 0 80px rgba(217,160,102,0.5); }
-        100% { transform: scale(1); opacity: 1; box-shadow: 0 0 120px rgba(217,160,102,0.3); }
-      }
-
-      /* --- Spin collectible --- */
-      .modal.spin {
-        animation: collectibleSpin 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-      }
-      @keyframes collectibleSpin {
-        0% { transform: scale(0.4) rotate(0deg); opacity: 0; }
-        30% { transform: scale(1.1) rotate(360deg); opacity: 1; }
-        50% { transform: scale(0.95) rotate(700deg); }
-        70% { transform: scale(1.05) rotate(1060deg); }
-        100% { transform: scale(1) rotate(1080deg); }
-      }
-
-      /* --- Glitch modal --- */
-      .modal.glitch-reveal {
-        animation: glitchReveal 0.6s ease forwards;
-      }
-      @keyframes glitchReveal {
-        0% { transform: translate(0) scale(0.8); opacity: 0; filter: hue-rotate(0deg); }
-        15% { transform: translate(10px, -5px) scale(1.05); opacity: 1; filter: hue-rotate(90deg); }
-        30% { transform: translate(-8px, 3px) scale(0.95); filter: hue-rotate(-60deg) saturate(2); }
-        45% { transform: translate(5px, -8px) scale(1.02); filter: hue-rotate(180deg); }
-        60% { transform: translate(-3px, 5px) scale(0.98); filter: hue-rotate(-120deg) contrast(1.5); }
-        75% { transform: translate(2px, -2px) scale(1.01); filter: hue-rotate(30deg); }
-        100% { transform: translate(0) scale(1); opacity: 1; filter: none; }
-      }
-
-      /* --- Explode --- */
-      .modal.explode {
-        animation: explodeReveal 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-      }
-      @keyframes explodeReveal {
-        0% { transform: scale(0); opacity: 0; border-radius: 50%; }
-        50% { transform: scale(1.15); border-radius: 18px; }
-        70% { transform: scale(0.95); }
-        100% { transform: scale(1); opacity: 1; }
-      }
-
-      /* --- Easter egg: giant spin --- */
-      .modal.giant-spin {
-        animation: giantSpin 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-      }
-      @keyframes giantSpin {
-        0% { transform: scale(0.1) rotate(0deg); opacity: 0; }
-        30% { transform: scale(1.3) rotate(720deg); opacity: 1; }
-        60% { transform: scale(0.9) rotate(1400deg); }
-        100% { transform: scale(1) rotate(1440deg); }
-      }
-
-      /* --- Easter egg: bounce --- */
-      .modal.bounce-reveal {
-        animation: bounceReveal 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-      }
-      @keyframes bounceReveal {
-        0% { transform: translateY(-200vh) scale(0.5); opacity: 0; }
-        50% { transform: translateY(20px) scale(1.1); opacity: 1; }
-        70% { transform: translateY(-10px) scale(0.95); }
-        85% { transform: translateY(5px) scale(1.02); }
-        100% { transform: translateY(0) scale(1); }
-      }
-
-      /* --- Modal spotlight background --- */
-      .modal-overlay.spotlight-bg {
-        background: radial-gradient(circle at 50% 50%, rgba(217,160,102,0.15) 0%, rgba(0,0,0,0.7) 60%);
-      }
-
       .modal-close {
         position: absolute;
         top: 12px;
@@ -362,6 +262,68 @@
       }
       .modal-close:hover { color: var(--text); }
 
+      /* --- Card animations --- */
+      .modal.anim-explode { animation: animExplode 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+      .modal.anim-flip { animation: animFlip 0.7s ease both; }
+      .modal.anim-shake { animation: animShake 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) both; }
+      .modal.anim-spotlight { animation: animSpotlight 0.55s ease both; }
+      .modal.anim-glitch { animation: animGlitch 0.5s ease both; }
+      .modal.anim-spin { animation: animSpin 0.85s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+      .modal.anim-egg-spin { animation: animEggSpin 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+      .modal.anim-egg-bounce { animation: animEggBounce 0.75s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+
+      @keyframes animExplode {
+        0% { transform: scale(0); opacity: 0; border-radius: 50%; }
+        50% { transform: scale(1.12); opacity: 1; border-radius: 18px; }
+        70% { transform: scale(0.96); }
+        100% { transform: scale(1); opacity: 1; }
+      }
+      @keyframes animFlip {
+        0% { transform: perspective(800px) rotateY(0deg) scale(0.7); opacity: 0; }
+        40% { transform: perspective(800px) rotateY(180deg) scale(0.85); opacity: 0.6; }
+        100% { transform: perspective(800px) rotateY(360deg) scale(1); opacity: 1; }
+      }
+      @keyframes animShake {
+        0% { transform: translateX(0) scale(0.5); opacity: 0; }
+        30% { transform: translateX(-12px) scale(1.08); opacity: 1; }
+        50% { transform: translateX(10px) scale(1.02); }
+        70% { transform: translateX(-6px) scale(1.01); }
+        100% { transform: translateX(0) scale(1); }
+      }
+      @keyframes animSpotlight {
+        0% { transform: scale(0.4); opacity: 0; box-shadow: 0 0 0 rgba(217,160,102,0); }
+        50% { transform: scale(1.08); opacity: 1; box-shadow: 0 0 80px rgba(217,160,102,0.4); }
+        100% { transform: scale(1); opacity: 1; box-shadow: 0 0 30px rgba(217,160,102,0.15); }
+      }
+      @keyframes animGlitch {
+        0% { transform: translate(0) scale(0.8); opacity: 0; filter: hue-rotate(0deg); }
+        15% { transform: translate(8px, -4px) scale(1.04); opacity: 1; filter: hue-rotate(90deg); }
+        30% { transform: translate(-6px, 3px) scale(0.96); filter: hue-rotate(-60deg) saturate(2); }
+        45% { transform: translate(4px, -6px) scale(1.02); filter: hue-rotate(180deg); }
+        60% { transform: translate(-2px, 4px) scale(0.99); filter: hue-rotate(-120deg); }
+        100% { transform: translate(0) scale(1); opacity: 1; filter: none; }
+      }
+      @keyframes animSpin {
+        0% { transform: scale(0.3) rotate(0deg); opacity: 0; }
+        40% { transform: scale(1.1) rotate(400deg); opacity: 1; }
+        70% { transform: scale(0.95) rotate(700deg); }
+        100% { transform: scale(1) rotate(720deg); }
+      }
+      @keyframes animEggSpin {
+        0% { transform: scale(0.1) rotate(0deg); opacity: 0; }
+        30% { transform: scale(1.3) rotate(720deg); opacity: 1; }
+        60% { transform: scale(0.9) rotate(1400deg); }
+        100% { transform: scale(1) rotate(1440deg); }
+      }
+      @keyframes animEggBounce {
+        0% { transform: translateY(-200vh) scale(0.5); opacity: 0; }
+        50% { transform: translateY(20px) scale(1.08); opacity: 1; }
+        70% { transform: translateY(-10px) scale(0.96); }
+        85% { transform: translateY(5px) scale(1.02); }
+        100% { transform: translateY(0) scale(1); }
+      }
+
+      /* --- Modal avatar --- */
       .modal-avatar {
         position: relative;
         width: 160px;
@@ -376,13 +338,6 @@
         font-weight: 700;
         color: #1c140f;
         background: linear-gradient(135deg, var(--accent), var(--accent-strong));
-        opacity: 0;
-        transform: scale(0.5);
-        transition: opacity 0.4s ease 0.3s, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s;
-      }
-      .modal.reveal-avatar .modal-avatar {
-        opacity: 1;
-        transform: scale(1);
       }
       .modal-avatar img {
         position: absolute;
@@ -392,19 +347,20 @@
         object-fit: cover;
       }
 
-      .reveal-name, .reveal-role, .reveal-about, .reveal-contribution, .reveal-funfact {
+      /* --- Sequential reveal: hidden then shown --- */
+      .r-name, .r-role, .r-about, .r-contrib, .r-fun {
         opacity: 0;
-        transform: translateY(15px);
-        transition: opacity 0.4s ease, transform 0.4s ease;
+        transform: translateY(12px);
+        transition: opacity 0.35s ease, transform 0.35s ease;
       }
-      .modal.show-name .reveal-name { opacity: 1; transform: translateY(0); transition-delay: 0.5s; }
-      .modal.show-role .reveal-role { opacity: 1; transform: translateY(0); transition-delay: 0.65s; }
-      .modal.show-about .reveal-about { opacity: 1; transform: translateY(0); transition-delay: 0.8s; }
-      .modal.show-contribution .reveal-contribution { opacity: 1; transform: translateY(0); transition-delay: 0.95s; }
-      .modal.show-funfact .reveal-funfact { opacity: 1; transform: translateY(0); transition-delay: 1.1s; }
+      .modal.reveal-1 .r-name { opacity: 1; transform: translateY(0); }
+      .modal.reveal-2 .r-role { opacity: 1; transform: translateY(0); }
+      .modal.reveal-3 .r-about { opacity: 1; transform: translateY(0); }
+      .modal.reveal-4 .r-contrib { opacity: 1; transform: translateY(0); }
+      .modal.reveal-5 .r-fun { opacity: 1; transform: translateY(0); }
 
-      .reveal-name h2 { margin: 0; font-size: 24px; }
-      .reveal-role .modal-role {
+      .r-name h2 { margin: 0; font-size: 24px; }
+      .r-role p {
         margin: 6px 0 16px;
         font-size: 13px;
         font-weight: 600;
@@ -412,30 +368,24 @@
         text-transform: uppercase;
         color: var(--accent);
       }
-      .reveal-about .modal-bio,
-      .reveal-contribution .modal-bio,
-      .reveal-funfact .modal-bio {
+      .r-about p, .r-contrib p, .r-fun p {
         margin: 0 0 10px;
         font-size: 14px;
         color: var(--text-muted);
         line-height: 1.6;
         text-align: left;
       }
-      .reveal-contribution .modal-bio strong,
-      .reveal-funfact .modal-bio strong {
-        color: var(--text);
-      }
-      .modal-funfact {
-        margin-top: 14px;
+      .r-fun .fun-box {
+        margin-top: 12px;
         padding: 12px 16px;
         background: var(--surface-2);
         border-radius: 10px;
         border: 1px dashed var(--accent);
-        text-align: left;
       }
-      .modal-funfact .modal-bio {
+      .r-fun .fun-box p {
         margin: 0;
         font-style: italic;
+        text-align: left;
       }
 
       /* ===== LOADER ===== */
@@ -597,38 +547,34 @@
       <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalName">
         <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
         <div class="modal-avatar"><img id="modalImg" src="" alt="" /><span id="modalInitials"></span></div>
-        <div class="reveal-name"><h2 id="modalName"></h2></div>
-        <div class="reveal-role"><p class="modal-role" id="modalRole"></p></div>
-        <div class="reveal-about"><p class="modal-bio" id="modalBio"></p></div>
-        <div class="reveal-contribution"><p class="modal-bio" id="modalContribution"></p></div>
-        <div class="reveal-funfact">
-          <div class="modal-funfact">
-            <p class="modal-bio" id="modalFunfact"></p>
-          </div>
-        </div>
+        <div class="r-name"><h2 id="modalName"></h2></div>
+        <div class="r-role"><p id="modalRole"></p></div>
+        <div class="r-about"><p id="modalBio"></p></div>
+        <div class="r-contrib"><p id="modalContribution"></p></div>
+        <div class="r-fun"><div class="fun-box"><p id="modalFunfact"></p></div></div>
       </div>
     </div>
 
     <script>
       (function () {
-        var modal = document.getElementById("memberModal");
-        var modalDialog = modal.querySelector(".modal");
-        var modalImg = document.getElementById("modalImg");
-        var modalInitials = document.getElementById("modalInitials");
-        var modalName = document.getElementById("modalName");
-        var modalRole = document.getElementById("modalRole");
-        var modalBio = document.getElementById("modalBio");
-        var modalContribution = document.getElementById("modalContribution");
-        var modalFunfact = document.getElementById("modalFunfact");
-        var modalClose = document.getElementById("modalClose");
+        var overlay = document.getElementById("memberModal");
+        var dialog = overlay.querySelector(".modal");
+        var mImg = document.getElementById("modalImg");
+        var mInitials = document.getElementById("modalInitials");
+        var mName = document.getElementById("modalName");
+        var mRole = document.getElementById("modalRole");
+        var mBio = document.getElementById("modalBio");
+        var mContrib = document.getElementById("modalContribution");
+        var mFun = document.getElementById("modalFunfact");
+        var mClose = document.getElementById("modalClose");
 
-        modalImg.onerror = function () { this.style.display = "none"; };
+        mImg.onerror = function () { this.style.display = "none"; };
 
         // ---- Particle system ----
         var canvas = document.getElementById("particleCanvas");
         var ctx = canvas.getContext("2d");
-        var particles = [];
-        var animFrame = null;
+        var parts = [];
+        var raf = null;
 
         function resizeCanvas() {
           canvas.width = window.innerWidth;
@@ -637,140 +583,124 @@
         resizeCanvas();
         window.addEventListener("resize", resizeCanvas);
 
-        function Particle(x, y, color) {
-          this.x = x;
-          this.y = y;
+        function Particle(x, y, col) {
+          this.x = x; this.y = y;
           this.vx = (Math.random() - 0.5) * 14;
           this.vy = (Math.random() - 0.5) * 14 - 3;
           this.life = 1;
           this.decay = 0.012 + Math.random() * 0.015;
           this.size = 3 + Math.random() * 5;
-          this.color = color || "#d9a066";
-          this.rotation = Math.random() * Math.PI * 2;
-          this.rotSpeed = (Math.random() - 0.5) * 0.3;
+          this.col = col;
+          this.rot = Math.random() * Math.PI * 2;
+          this.rv = (Math.random() - 0.5) * 0.3;
         }
 
-        function spawnParticles(x, y, count, colors) {
-          for (var i = 0; i < count; i++) {
-            var c = colors[Math.floor(Math.random() * colors.length)];
-            particles.push(new Particle(x, y, c));
-          }
-          if (!animFrame) animateParticles();
+        function spawn(x, y, n, cols) {
+          for (var i = 0; i < n; i++) parts.push(new Particle(x, y, cols[~~(Math.random() * cols.length)]));
+          if (!raf) tick();
         }
 
-        function animateParticles() {
+        function tick() {
           ctx.clearRect(0, 0, canvas.width, canvas.height);
-          for (var i = particles.length - 1; i >= 0; i--) {
-            var p = particles[i];
-            p.x += p.vx;
-            p.y += p.vy;
-            p.vy += 0.15;
-            p.vx *= 0.98;
-            p.life -= p.decay;
-            p.rotation += p.rotSpeed;
-            if (p.life <= 0) { particles.splice(i, 1); continue; }
+          for (var i = parts.length - 1; i >= 0; i--) {
+            var p = parts[i];
+            p.x += p.vx; p.y += p.vy; p.vy += 0.15; p.vx *= 0.98;
+            p.life -= p.decay; p.rot += p.rv;
+            if (p.life <= 0) { parts.splice(i, 1); continue; }
             ctx.save();
             ctx.translate(p.x, p.y);
-            ctx.rotate(p.rotation);
+            ctx.rotate(p.rot);
             ctx.globalAlpha = p.life;
-            ctx.fillStyle = p.color;
+            ctx.fillStyle = p.col;
             ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
             ctx.restore();
           }
-          if (particles.length > 0) {
-            animFrame = requestAnimationFrame(animateParticles);
-          } else {
-            animFrame = null;
-          }
+          raf = parts.length > 0 ? requestAnimationFrame(tick) : null;
         }
 
-        // ---- Easter egg chance ----
-        function getEasterEgg() {
+        // ---- Open member ----
+        var revealTimer = null;
+
+        function openMember(card) {
+          if (revealTimer) { clearTimeout(revealTimer); revealTimer = null; }
+
+          var anim = card.getAttribute("data-anim") || "explode";
+
+          // Easter eggs: 5% giant spin, 5% bounce
           var r = Math.random();
-          if (r < 0.05) return "giant-spin";
-          if (r < 0.10) return "bounce";
-          return null;
-        }
+          if (r < 0.05) anim = "egg-spin";
+          else if (r < 0.10) anim = "egg-bounce";
 
-        // ---- Open member with unique animation ----
-        function openMember(card, e) {
-          var anim = card.getAttribute("data-anim") || "slam";
-          var egg = getEasterEgg();
-          var finalAnim = egg || anim;
-
-          // Particle burst at click position
+          // Particle burst
           var rect = card.getBoundingClientRect();
-          var cx = rect.left + rect.width / 2;
-          var cy = rect.top + rect.height / 2;
-          var particleColors = ["#d9a066", "#c08457", "#efe6dc", "#e07a5f", "#81b29a", "#f2cc8f"];
-          spawnParticles(cx, cy, 40, particleColors);
+          spawn(rect.left + rect.width / 2, rect.top + rect.height / 2, 40,
+            ["#d9a066", "#c08457", "#efe6dc", "#e07a5f", "#81b29a", "#f2cc8f"]);
 
-          // Screen effects
-          if (finalAnim === "shake") {
+          // Body effects
+          if (anim === "shake") {
             document.body.classList.add("shake");
             setTimeout(function () { document.body.classList.remove("shake"); }, 500);
           }
-          if (finalAnim === "glitch" || (anim === "glitch" && !egg)) {
+          if (anim === "glitch") {
             document.body.classList.add("glitch-active");
             setTimeout(function () { document.body.classList.remove("glitch-active"); }, 400);
           }
 
           // Spotlight background
-          modal.classList.remove("spotlight-bg");
-          if (finalAnim === "spotlight") {
-            modal.classList.add("spotlight-bg");
-          }
+          overlay.classList.toggle("spotlight-bg", anim === "spotlight");
 
-          // Fill modal data
-          modalImg.style.display = "block";
-          modalImg.src = card.getAttribute("data-img") || "";
-          modalImg.alt = card.querySelector("h3").textContent.trim();
-          modalInitials.textContent = card.querySelector(".avatar").textContent.trim();
-          modalName.textContent = card.querySelector("h3").textContent.trim();
-          var role = card.querySelector(".role");
-          modalRole.textContent = role ? role.textContent.trim() : "";
-          modalBio.textContent = card.querySelector(".bio").textContent.trim();
-          modalContribution.textContent = card.getAttribute("data-contribution") || "";
-          modalFunfact.textContent = "Fun fact: " + (card.getAttribute("data-funfact") || "Loves Filipino culture!");
+          // Fill content
+          mImg.style.display = "block";
+          mImg.src = card.getAttribute("data-img") || "";
+          mImg.alt = card.querySelector("h3").textContent.trim();
+          mInitials.textContent = card.querySelector(".avatar").textContent.trim();
+          mName.textContent = card.querySelector("h3").textContent.trim();
+          mRole.textContent = card.querySelector(".role") ? card.querySelector(".role").textContent.trim() : "";
+          mBio.textContent = card.querySelector(".bio").textContent.trim();
+          mContrib.textContent = card.getAttribute("data-contribution") || "";
+          mFun.textContent = "Fun fact: " + (card.getAttribute("data-funfact") || "Loves Filipino culture!");
 
-          // Reset animation classes
-          modalDialog.className = "modal";
-          modal.hidden = false;
+          // Reset classes
+          dialog.className = "modal";
 
-          // Force reflow
-          void modalDialog.offsetWidth;
+          // Show overlay + dialog
+          overlay.hidden = false;
 
-          // Apply animation
-          modalDialog.classList.add(finalAnim);
+          // Force reflow then apply animation
+          void dialog.offsetWidth;
+          dialog.classList.add("anim-" + anim);
 
-          // Sequential reveal
-          setTimeout(function () { modalDialog.classList.add("reveal-avatar"); }, 100);
-          setTimeout(function () { modalDialog.classList.add("show-name"); }, 100);
-          setTimeout(function () { modalDialog.classList.add("show-role"); }, 100);
-          setTimeout(function () { modalDialog.classList.add("show-about"); }, 100);
-          setTimeout(function () { modalDialog.classList.add("show-contribution"); }, 100);
-          setTimeout(function () { modalDialog.classList.add("show-funfact"); }, 100);
+          // Sequential reveal of content rows
+          setTimeout(function () { dialog.classList.add("reveal-1"); }, 200);
+          revealTimer = setTimeout(function () {
+            dialog.classList.add("reveal-2");
+            setTimeout(function () { dialog.classList.add("reveal-3"); }, 120);
+            setTimeout(function () { dialog.classList.add("reveal-4"); }, 240);
+            setTimeout(function () { dialog.classList.add("reveal-5"); }, 360);
+          }, 200);
         }
 
         function closeModal() {
-          modalDialog.className = "modal";
-          modal.hidden = true;
-          modal.classList.remove("spotlight-bg");
+          if (revealTimer) { clearTimeout(revealTimer); revealTimer = null; }
+          dialog.className = "modal";
+          overlay.hidden = true;
+          overlay.classList.remove("spotlight-bg");
         }
 
+        // ---- Click handlers ----
         document.querySelectorAll(".member").forEach(function (card) {
           card.addEventListener("click", function (e) {
             if (e.target.closest("a")) return;
-            openMember(card, e);
+            openMember(card);
           });
           card.setAttribute("tabindex", "0");
           card.addEventListener("keydown", function (e) {
-            if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openMember(card, e); }
+            if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openMember(card); }
           });
         });
 
-        modalClose.addEventListener("click", closeModal);
-        modal.addEventListener("click", function (e) { if (e.target === modal) closeModal(); });
+        mClose.addEventListener("click", closeModal);
+        overlay.addEventListener("click", function (e) { if (e.target === overlay) closeModal(); });
         document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeModal(); });
 
         // ---- Page transitions ----
@@ -786,17 +716,12 @@
             var href = link.getAttribute("href");
             if (!href || href.startsWith("#") || link.target === "_blank" || href.startsWith("javascript:") || href.startsWith("mailto:")) return;
             e.preventDefault();
-            var msg = pageMessages[href] || "Preparing the next page...";
-            loaderText.textContent = msg;
+            loaderText.textContent = pageMessages[href] || "Preparing the next page...";
             loader.style.display = "flex";
             loader.classList.remove("turn");
             void loader.offsetWidth;
-            setTimeout(function () {
-              loader.classList.add("turn");
-            }, 50);
-            setTimeout(function () {
-              window.location.href = href;
-            }, 1200);
+            setTimeout(function () { loader.classList.add("turn"); }, 50);
+            setTimeout(function () { window.location.href = href; }, 1200);
           });
         });
       })();

@@ -388,6 +388,23 @@
         font-style: italic;
         text-align: left;
       }
+      .fun-badge {
+        position: absolute;
+        bottom: 8px;
+        right: 12px;
+        font-size: 11px;
+        font-weight: 700;
+        color: #e07a5f;
+        letter-spacing: 0.03em;
+        opacity: 0;
+        transition: opacity 0.3s ease 1.4s;
+      }
+      .modal.show-badge .fun-badge {
+        opacity: 1;
+      }
+      .r-fun .fun-box {
+        position: relative;
+      }
 
       /* --- Tabay glitch canvas --- */
       .tabay-glitch-wrap {
@@ -536,7 +553,7 @@
         </div>
       </article>
 
-      <article class="member" data-img="../Balazo.png" data-anim="glitch" data-contribution="Optimized performance, accessibility, and kept the codebase clean and maintainable." data-funfact="Once fixed a bug in their sleep and committed it the next morning without remembering.">
+      <article class="member" data-img="../Balazo.png" data-anim="glitch" data-contribution="Optimized performance, accessibility, and kept the codebase clean and maintainable." data-funfact="Once fixed a bug in their sleep and committed it the next morning without remembering." data-badge="He's also GAY">
         <div class="avatar"><img src="../Balazo.png" alt="Balazo Developer who implements features and keeps the site fast" onerror="this.style.display='none'">BA</div>
         <h3>Balazo</h3>
         <p class="role">Developer</p>
@@ -575,7 +592,7 @@
         <div class="r-role"><p id="modalRole"></p></div>
         <div class="r-about"><p id="modalBio"></p></div>
         <div class="r-contrib"><p id="modalContribution"></p></div>
-        <div class="r-fun"><div class="fun-box"><p id="modalFunfact"></p></div></div>
+        <div class="r-fun"><div class="fun-box"><p id="modalFunfact"></p><span class="fun-badge" id="modalBadge"></span></div></div>
       </div>
     </div>
 
@@ -683,6 +700,10 @@
           mBio.textContent = card.querySelector(".bio").textContent.trim();
           mContrib.textContent = card.getAttribute("data-contribution") || "";
           mFun.textContent = "Fun fact: " + (card.getAttribute("data-funfact") || "Loves Filipino culture!");
+          var badge = document.getElementById("modalBadge");
+          var badgeText = card.getAttribute("data-badge") || "";
+          badge.textContent = badgeText;
+          badge.style.display = badgeText ? "block" : "none";
 
           // Reset classes
           dialog.className = "modal";
@@ -700,7 +721,10 @@
             dialog.classList.add("reveal-2");
             setTimeout(function () { dialog.classList.add("reveal-3"); }, 120);
             setTimeout(function () { dialog.classList.add("reveal-4"); }, 240);
-            setTimeout(function () { dialog.classList.add("reveal-5"); }, 360);
+            setTimeout(function () {
+              dialog.classList.add("reveal-5");
+              if (badgeText) setTimeout(function () { dialog.classList.add("show-badge"); }, 300);
+            }, 360);
           }, 200);
         }
 

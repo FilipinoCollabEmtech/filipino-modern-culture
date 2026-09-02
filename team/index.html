@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Meet the Team of Filipino Culture in the digital age</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
     <style>
       :root {
         --bg: #2b211c;
@@ -388,6 +389,33 @@
         text-align: left;
       }
 
+      /* --- Tabay glitch canvas --- */
+      .tabay-glitch-wrap {
+        position: relative;
+        width: 92px;
+        height: 92px;
+        margin: 0 auto 16px;
+        border-radius: 50%;
+        overflow: hidden;
+      }
+      .tabay-glitch-wrap canvas {
+        display: block;
+        border-radius: 50%;
+      }
+      .member.glitch-card {
+        position: relative;
+      }
+      .member.glitch-card .avatar {
+        display: none;
+      }
+      .member.glitch-card h3,
+      .member.glitch-card .role,
+      .member.glitch-card .bio,
+      .member.glitch-card .socials {
+        position: relative;
+        z-index: 1;
+      }
+
       /* ===== LOADER ===== */
       .loader {
         position: fixed;
@@ -501,8 +529,8 @@
         </div>
       </article>
 
-      <article class="member" data-img="../Tabay.png" data-anim="spotlight" data-contribution="Built the core site structure, scroll system, and interactive features from scratch." data-funfact="Debugs code at 3 AM with coffee and calls it 'night shift heritage work'.">
-        <div class="avatar"><img src="../Tabay.png" alt="Tabay Developer who builds and maintains the site" onerror="this.style.display='none'">TA</div>
+      <article class="member glitch-card" data-img="../Tabay.png" data-anim="spotlight" data-contribution="Built the core site structure, scroll system, and interactive features from scratch." data-funfact="Debugs code at 3 AM with coffee and calls it 'night shift heritage work'.">
+        <div class="tabay-glitch-wrap" id="tabayGlitch"></div>
         <h3>Tabay</h3>
         <p class="role">Developer</p>
         <p class="bio">Builds and maintains the site, keeping the reading experience smooth across devices.</p>
@@ -723,6 +751,191 @@
             setTimeout(function () { loader.classList.add("turn"); }, 50);
             setTimeout(function () { window.location.href = href; }, 1200);
           });
+        });
+      })();
+    </script>
+
+    <script>
+      // ---- Tabay glitch effect (p5.js) ----
+      (function () {
+        var container = document.getElementById("tabayGlitch");
+        if (!container) return;
+
+        var windowW = 92;
+        var windowH = 92;
+        var glitch;
+        var isLoaded = false;
+
+        function Glitch(img) {
+          this.channelLen = 4;
+          this.imgOrigin = img;
+          this.imgOrigin.loadPixels();
+          this.copyData = new Uint8ClampedArray(this.imgOrigin.pixels);
+          this.flowLineImgs = [];
+          this.shiftLineImgs = [];
+          this.shiftRGBs = [];
+          this.scatImgs = [];
+          this.throughFlag = true;
+
+          for (var i = 0; i < 1; i++) {
+            this.flowLineImgs.push({
+              pixels: null,
+              t1: Math.floor(Math.random() * 1000),
+              speed: Math.floor(Math.random() * 4 + 4),
+              randX: Math.floor(Math.random() * 56 + 24)
+            });
+          }
+          for (var i = 0; i < 6; i++) this.shiftLineImgs.push(null);
+          for (var i = 0; i < 1; i++) this.shiftRGBs.push(null);
+          for (var i = 0; i < 3; i++) this.scatImgs.push({ img: null, x: 0, y: 0 });
+        }
+
+        Glitch.prototype.replaceData = function (destImg, srcPixels) {
+          for (var y = 0; y < destImg.height; y++) {
+            for (var x = 0; x < destImg.width; x++) {
+              var idx = (y * destImg.width + x) * this.channelLen;
+              destImg.pixels[idx] = srcPixels[idx];
+              destImg.pixels[idx + 1] = srcPixels[idx + 1];
+              destImg.pixels[idx + 2] = srcPixels[idx + 2];
+              destImg.pixels[idx + 3] = srcPixels[idx + 3];
+            }
+          }
+          destImg.updatePixels();
+        };
+
+        Glitch.prototype.flowLine = function (srcImg, obj) {
+          var destPixels = new Uint8ClampedArray(srcImg.pixels);
+          obj.t1 %= srcImg.height;
+          obj.t1 += obj.speed;
+          var tempY = Math.floor(obj.t1);
+          for (var y = 0; y < srcImg.height; y++) {
+            if (tempY === y) {
+              for (var x = 0; x < srcImg.width; x++) {
+                var idx = (y * srcImg.width + x) * this.channelLen;
+                destPixels[idx] = srcImg.pixels[idx] + obj.randX;
+                destPixels[idx + 1] = srcImg.pixels[idx + 1] + obj.randX;
+                destPixels[idx + 2] = srcImg.pixels[idx + 2] + obj.randX;
+                destPixels[idx + 3] = srcImg.pixels[idx + 3];
+              }
+            }
+          }
+          return destPixels;
+        };
+
+        Glitch.prototype.shiftLine = function (srcImg) {
+          var destPixels = new Uint8ClampedArray(srcImg.pixels);
+          var rangeH = srcImg.height;
+          var rangeMin = Math.floor(Math.random() * rangeH);
+          var rangeMax = rangeMin + Math.floor(Math.random() * (rangeH - rangeMin));
+          var offsetX = this.channelLen * Math.floor(Math.random() * 80 - 40);
+          for (var y = 0; y < srcImg.height; y++) {
+            if (y > rangeMin && y < rangeMax) {
+              for (var x = 0; x < srcImg.width; x++) {
+                var idx = (y * srcImg.width + x) * this.channelLen;
+                var idx2 = idx + offsetX;
+                destPixels[idx] = srcImg.pixels[idx2] || srcImg.pixels[idx];
+                destPixels[idx + 1] = srcImg.pixels[idx2 + 1] || srcImg.pixels[idx + 1];
+                destPixels[idx + 2] = srcImg.pixels[idx2 + 2] || srcImg.pixels[idx + 2];
+                destPixels[idx + 3] = srcImg.pixels[idx + 3];
+              }
+            }
+          }
+          return destPixels;
+        };
+
+        Glitch.prototype.shiftRGB = function (srcImg) {
+          var destPixels = new Uint8ClampedArray(srcImg.pixels);
+          var range = 16;
+          var randR = (Math.floor(Math.random() * range * 2 - range) * srcImg.width + Math.floor(Math.random() * range * 2 - range)) * this.channelLen;
+          var randG = (Math.floor(Math.random() * range * 2 - range) * srcImg.width + Math.floor(Math.random() * range * 2 - range)) * this.channelLen;
+          var randB = (Math.floor(Math.random() * range * 2 - range) * srcImg.width + Math.floor(Math.random() * range * 2 - range)) * this.channelLen;
+          var len = srcImg.pixels.length;
+          for (var y = 0; y < srcImg.height; y++) {
+            for (var x = 0; x < srcImg.width; x++) {
+              var idx = (y * srcImg.width + x) * this.channelLen;
+              destPixels[idx] = srcImg.pixels[(idx + randR + len) % len];
+              destPixels[idx + 1] = srcImg.pixels[(idx + randG + len) % len];
+              destPixels[idx + 2] = srcImg.pixels[(idx + randB + len) % len];
+              destPixels[idx + 3] = srcImg.pixels[idx + 3];
+            }
+          }
+          return destPixels;
+        };
+
+        Glitch.prototype.getRandomRectImg = function (srcImg) {
+          var sx = Math.floor(Math.random() * (srcImg.width - 30));
+          var sy = Math.floor(Math.random() * (srcImg.height - 50));
+          var rw = Math.floor(Math.random() * (srcImg.width - sx - 30) + 30);
+          var rh = Math.floor(Math.random() * 49 + 1);
+          var d = srcImg.get(sx, sy, rw, rh);
+          d.loadPixels();
+          return d;
+        };
+
+        Glitch.prototype.show = function () {
+          this.replaceData(this.imgOrigin, this.copyData);
+          var n = Math.floor(Math.random() * 100);
+          if (n > 75 && this.throughFlag) {
+            this.throughFlag = false;
+            var self = this;
+            setTimeout(function () { self.throughFlag = true; }, Math.floor(Math.random() * 360 + 40));
+          }
+          if (!this.throughFlag) {
+            push();
+            image(this.imgOrigin, 0, 0);
+            pop();
+            return;
+          }
+          var self = this;
+          this.flowLineImgs.forEach(function (v, i, arr) {
+            arr[i].pixels = self.flowLine(self.imgOrigin, v);
+            if (arr[i].pixels) self.replaceData(self.imgOrigin, arr[i].pixels);
+          });
+          this.shiftLineImgs.forEach(function (v, i, arr) {
+            if (Math.floor(Math.random() * 100) > 50) {
+              arr[i] = self.shiftLine(self.imgOrigin);
+              self.replaceData(self.imgOrigin, arr[i]);
+            } else if (arr[i]) {
+              self.replaceData(self.imgOrigin, arr[i]);
+            }
+          });
+          this.shiftRGBs.forEach(function (v, i, arr) {
+            if (Math.floor(Math.random() * 100) > 65) {
+              arr[i] = self.shiftRGB(self.imgOrigin);
+              self.replaceData(self.imgOrigin, arr[i]);
+            }
+          });
+          push();
+          image(this.imgOrigin, 0, 0);
+          pop();
+          this.scatImgs.forEach(function (obj) {
+            push();
+            if (Math.floor(Math.random() * 100) > 80) {
+              obj.x = Math.floor(Math.random() * self.imgOrigin.width * 1.0 - self.imgOrigin.width * 0.3);
+              obj.y = Math.floor(Math.random() * self.imgOrigin.height * 1.1 - self.imgOrigin.height * 0.1);
+              obj.img = self.getRandomRectImg(self.imgOrigin);
+            }
+            if (obj.img) image(obj.img, obj.x, obj.y);
+            pop();
+          });
+        };
+
+        // p5.js instance mode
+        new p5(function (p) {
+          p.setup = function () {
+            var cnv = p.createCanvas(windowW, windowH);
+            cnv.parent(container);
+            p.pixelDensity(1);
+            p.loadImage("../Tabay.png", function (img) {
+              img.resize(windowW, windowH);
+              glitch = new Glitch(img);
+              isLoaded = true;
+            });
+          };
+          p.draw = function () {
+            p.clear();
+            if (isLoaded) glitch.show();
+          };
         });
       })();
     </script>

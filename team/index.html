@@ -391,28 +391,22 @@
 
       /* --- Tabay glitch canvas --- */
       .tabay-glitch-wrap {
-        position: relative;
-        width: 92px;
-        height: 92px;
-        margin: 0 auto 16px;
+        position: absolute;
+        inset: 0;
         border-radius: 50%;
         overflow: hidden;
+        z-index: 2;
       }
       .tabay-glitch-wrap canvas {
         display: block;
+        width: 100% !important;
+        height: 100% !important;
         border-radius: 50%;
       }
-      .member.glitch-card {
-        position: relative;
-      }
       .member.glitch-card .avatar {
-        display: none;
-      }
-      .member.glitch-card h3,
-      .member.glitch-card .role,
-      .member.glitch-card .bio,
-      .member.glitch-card .socials {
         position: relative;
+      }
+      .member.glitch-card .avatar img {
         z-index: 1;
       }
 
@@ -530,7 +524,9 @@
       </article>
 
       <article class="member glitch-card" data-img="../Tabay.png" data-anim="spotlight" data-contribution="Built the core site structure, scroll system, and interactive features from scratch." data-funfact="Debugs code at 3 AM with coffee and calls it 'night shift heritage work'.">
-        <div class="tabay-glitch-wrap" id="tabayGlitch"></div>
+        <div class="avatar"><img src="../Tabay.png" alt="Tabay Developer who builds and maintains the site" onerror="this.style.display='none'">TA
+          <div class="tabay-glitch-wrap" id="tabayGlitch"></div>
+        </div>
         <h3>Tabay</h3>
         <p class="role">Developer</p>
         <p class="bio">Builds and maintains the site, keeping the reading experience smooth across devices.</p>
@@ -921,22 +917,28 @@
         };
 
         // p5.js instance mode
-        new p5(function (p) {
-          p.setup = function () {
-            var cnv = p.createCanvas(windowW, windowH);
-            cnv.parent(container);
-            p.pixelDensity(1);
-            p.loadImage("../Tabay.png", function (img) {
-              img.resize(windowW, windowH);
-              glitch = new Glitch(img);
-              isLoaded = true;
-            });
-          };
-          p.draw = function () {
-            p.clear();
-            if (isLoaded) glitch.show();
-          };
-        });
+        try {
+          new p5(function (p) {
+            p.setup = function () {
+              var cnv = p.createCanvas(windowW, windowH);
+              cnv.parent(container);
+              p.pixelDensity(1);
+              p.loadImage("../Tabay.png", function (img) {
+                img.resize(windowW, windowH);
+                glitch = new Glitch(img);
+                isLoaded = true;
+              }, function () {
+                container.style.display = "none";
+              });
+            };
+            p.draw = function () {
+              p.clear();
+              if (isLoaded) glitch.show();
+            };
+          });
+        } catch (e) {
+          container.style.display = "none";
+        }
       })();
     </script>
   </body>

@@ -493,6 +493,80 @@
         color: var(--text-muted);
         font-size: 13px;
       }
+      .ref-group { margin-bottom: 20px; }
+      .ref-group:last-child { margin-bottom: 0; }
+      .ref-group h3 {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text);
+        margin: 0 0 8px;
+        padding-bottom: 6px;
+        border-bottom: 1px solid var(--border);
+      }
+      .ref-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      .ref-list li {
+        padding: 6px 0;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+        line-height: 1.5;
+      }
+      .ref-list li:last-child { border-bottom: none; }
+      .ref-url {
+        color: var(--text-muted);
+        text-decoration: none;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        flex: 1;
+        min-width: 0;
+      }
+      .ref-url:hover { color: var(--accent); text-decoration: underline; }
+      .ref-link-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        flex-shrink: 0;
+        padding: 4px 10px;
+        border: 1px solid var(--accent);
+        border-radius: 6px;
+        background: transparent;
+        color: var(--accent);
+        text-decoration: none;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+        white-space: nowrap;
+        transition: background 0.15s ease, color 0.15s ease;
+      }
+      .ref-link-btn:hover {
+        background: var(--accent);
+        color: #1c140f;
+      }
+      .ref-link-btn svg { width: 12px; height: 12px; }
+      .hyper-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 8px;
+      }
+      .hyper-item {
+        display: block;
+        padding: 10px 12px;
+        background: var(--surface-2);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 13px;
+        color: var(--text);
+        transition: border-color 0.15s ease, background 0.15s ease;
+      }
+      .hyper-item:hover { border-color: var(--accent); background: var(--hover); }
 
       .page-head {
         text-align: center;
@@ -869,95 +943,228 @@
 
         <div class="card topic" id="hyperlinks">
           <h2>Useful Hyperlinks</h2>
-          <h3>Explore Filipino Culture</h3>
-          <ul>
-            <li>What it Means to be Filipino — Insights into identity and cultural values.</li>
-            <li>SBS Cultural Atlas: Filipino Core Concepts — A deep dive into traditional values and social structures.</li>
-            <li>Digital Identity and TikTok Slang Study — Academic research on Gen Z online language.</li>
-            <li>The Rise of Filipino Influencers — Exploring how digital creators share culture globally.</li>
-            <li>Serious Eats: Beginner's Guide to Filipino Food — Culinary traditions made accessible for a global audience.</li>
-          </ul>
+          <p style="color:var(--text-muted);font-size:13px;margin:0 0 12px;">A small selection of useful websites for visitors to explore.</p>
+          <div class="hyper-grid">
+            <a class="hyper-item" href="https://culturalatlas.sbs.com.au/filipino-culture/filipino-culture-core-concepts" target="_blank" rel="noopener">Cultural Atlas – Filipino Culture</a>
+            <a class="hyper-item" href="https://www.filipinopod101.com/blog/2021/04/23/filipino-culture/" target="_blank" rel="noopener">FilipinoPod101 – Filipino Culture</a>
+            <a class="hyper-item" href="https://aralipunan.com/preserving-the-filipino-language-in-a-digital-age/" target="_blank" rel="noopener">Aralipunan – Preserving Filipino Language</a>
+            <a class="hyper-item" href="https://www.ateneo.edu/features/2021/11/10/preserving-culture-heritage-traditions-20th-century" target="_blank" rel="noopener">Ateneo – Preserving Culture &amp; Heritage</a>
+            <a class="hyper-item" href="https://pia.gov.ph/news/how-the-nlp-preserves-centuries-old-philippine-heritage/" target="_blank" rel="noopener">NLP – Philippine Heritage Preservation</a>
+            <a class="hyper-item" href="https://pbed.ph/module/globalization-migration-and-changes-in-filipino-culture/" target="_blank" rel="noopener">PBED – Filipino Culture &amp; Globalization</a>
+          </div>
         </div>
 
         <div class="card topic" id="references">
           <h2>References</h2>
+          <p style="color:var(--text-muted);font-size:13px;margin:0 0 16px;">Sources used in researching Filipino culture in the digital age.</p>
 
-          <h3>What is Filipino Culture</h3>
-          <ul>
-            <li>Taylor &amp; Francis Online: Filipino Identity Article</li>
-            <li>SBS Cultural Atlas: Filipino Culture Core Concepts</li>
-            <li>KGM Resorts: What It Means To Be Filipino</li>
-            <li>FilipinoPod101: Overview of Filipino Culture</li>
-          </ul>
+          <div class="ref-group">
+            <h3>Filipino Culture</h3>
+            <ul class="ref-list">
+              <li>
+                <span class="ref-url">What Is Filipino Culture – Taylor &amp; Francis</span>
+                <a class="ref-link-btn" href="https://www.tandfonline.com/doi/abs/10.1080/09552367.2015.1043173" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+              <li>
+                <span class="ref-url">Filipino Culture Core Concepts – Cultural Atlas</span>
+                <a class="ref-link-btn" href="https://culturalatlas.sbs.com.au/filipino-culture/filipino-culture-core-concepts" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+              <li>
+                <span class="ref-url">What It Means to Be Filipino – KGM Resorts</span>
+                <a class="ref-link-btn" href="https://www.kgmresorts.com/post/what-it-means-to-be-filipino" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+              <li>
+                <span class="ref-url">FilipinoPod101 – Filipino Culture</span>
+                <a class="ref-link-btn" href="https://www.filipinopod101.com/blog/2021/04/23/filipino-culture/" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+            </ul>
+          </div>
 
-          <h3>Digital Age in the Philippines</h3>
-          <ul>
-            <li>Freedom of Information PH / PSA: Social Media Statistics</li>
-            <li>StatCounter: Social Media Stats in the Philippines</li>
-            <li>MyAsiPH: Filipinos Incorporating Internet into Routines</li>
-            <li>Philippine Information Agency: Digital Transformation in PH Bureaucracy</li>
-          </ul>
+          <div class="ref-group">
+            <h3>Digital Age in the Philippines</h3>
+            <ul class="ref-list">
+              <li>
+                <span class="ref-url">Social Media Statistics – PSA (FOI)</span>
+                <a class="ref-link-btn" href="https://www.foi.gov.ph/agencies/psa/social-media-statistics/" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+              <li>
+                <span class="ref-url">Social Media Stats Philippines – StatCounter</span>
+                <a class="ref-link-btn" href="https://gs.statcounter.com/social-media-stats/all/philippines" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+              <li>
+                <span class="ref-url">Filipinos &amp; the Internet – MyASIPH</span>
+                <a class="ref-link-btn" href="https://myasiph.com/filipinos-continue-to-incorporate-the-internet-into-daily-routines/" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+              <li>
+                <span class="ref-url">Digital Transformation in PH Bureaucracy – PIA</span>
+                <a class="ref-link-btn" href="https://pia.gov.ph/features/digital-transformation-in-the-ph-bureaucracy/" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+            </ul>
+          </div>
 
-          <h3>Social Media as a New Space of Filipino Culture</h3>
-          <ul>
-            <li>Foundation for Media Alternatives: Social Media and Privacy</li>
-            <li>Camella: Impact of Social Media on Filipinos</li>
-            <li>Academia.edu: Understanding Filipino Values of Millennials on Social Media</li>
-            <li>ResearchGate: Filipinos In Social Media</li>
-            <li>EJournals.ph: Social Media Studies</li>
-            <li>RSIS International: Study of Filipino TikTok Slang Among Gen Z</li>
-          </ul>
+          <div class="ref-group">
+            <h3>Social Media &amp; Filipino Culture</h3>
+            <ul class="ref-list">
+              <li>
+                <span class="ref-url">Social Media &amp; Privacy – FMA Philippines</span>
+                <a class="ref-link-btn" href="https://fma.ph/resources/resources-gender-ict/social-media-and-privacy-the-philippine-experience/" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+              <li>
+                <span class="ref-url">Impact of Social Media on Filipinos – Camella</span>
+                <a class="ref-link-btn" href="https://www.camella.com.ph/unpacking-the-impact-of-social-media-on-filipinos/" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+              <li>
+                <span class="ref-url">Filipino Millennials on Social Media – Academia.edu</span>
+                <a class="ref-link-btn" href="https://www.academia.edu/35818733/UNDERSTANDING_THE_FILIPINO_VALUES_OF_FILIPINO_MILLENNIALS_ON_SOCIAL_MEDIA_A_NETNOGRAPHIC_STUDY" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+              <li>
+                <span class="ref-url">Filipinos in Social Medias – ResearchGate</span>
+                <a class="ref-link-btn" href="https://www.researchgate.net/publication/358275540_Filipinos_In_Social_Medias" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+              <li>
+                <span class="ref-url">Social Media &amp; Filipino Identity – eJournals PH</span>
+                <a class="ref-link-btn" href="https://ejournals.ph/article.php?id=26381" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+              <li>
+                <span class="ref-url">Filipino TikTok Slang – Gen Z – RSISInternational</span>
+                <a class="ref-link-btn" href="https://rsisinternational.org/journals/ijriss/articles/digital-identity-and-linguistic-play-a-study-of-filipino-tiktok-slang-among-generation-z/" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+            </ul>
+          </div>
 
-          <h3>Filipino Language Online</h3>
-          <ul>
-            <li>AJL2C: Language Studies</li>
-            <li>Globalization Partners: Taglish: Linguistic Blend &amp; Identity</li>
-            <li>Aralipunan: Preserving the Filipino Language in a Digital Age</li>
-            <li>Fluent Filipino: Exploring Filipino Language in Social Media</li>
-          </ul>
+          <div class="ref-group">
+            <h3>Filipino Language Online</h3>
+            <ul class="ref-list">
+              <li>
+                <span class="ref-url">Tagalog Online – AJL2C</span>
+                <a class="ref-link-btn" href="https://journalajl2c.com/index.php/AJL2C/article/view/288" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+              <li>
+                <span class="ref-url">Taglish &amp; Filipino Identity – Globalization Partners</span>
+                <a class="ref-link-btn" href="https://www.globalizationpartners.com/2024/11/27/taglish-linguistic-blend-filipino-identity/" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+              <li>
+                <span class="ref-url">Preserving Filipino in a Digital Age – Aralipunan</span>
+                <a class="ref-link-btn" href="https://aralipunan.com/preserving-the-filipino-language-in-a-digital-age/" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+              <li>
+                <span class="ref-url">Filipino Language on Social Media – Fluent Filipino</span>
+                <a class="ref-link-btn" href="https://fluentfilipino.com/exploring-the-use-of-filipino-language-in-philippine-social-media-and-communication/" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+            </ul>
+          </div>
 
-          <h3>Digital Preservation of Filipino Culture</h3>
-          <ul>
-            <li>Balikbayan Magazine: Preserving Childhood Traditions</li>
-            <li>Ateneo de Manila University: Preserving Culture and Heritage Traditions</li>
-            <li>Philippine Information Agency: How NLP Preserves Philippine Heritage</li>
-          </ul>
+          <div class="ref-group">
+            <h3>Digital Preservation</h3>
+            <ul class="ref-list">
+              <li>
+                <span class="ref-url">Preserving Filipino Childhood Traditions – Balikbayan</span>
+                <a class="ref-link-btn" href="https://balikbayanmagazine.com/arts-culture/preserving-filipino-childhood-traditions-in-the-digital-age/" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+              <li>
+                <span class="ref-url">Preserving Culture &amp; Heritage – Ateneo</span>
+                <a class="ref-link-btn" href="https://www.ateneo.edu/features/2021/11/10/preserving-culture-heritage-traditions-20th-century" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+              <li>
+                <span class="ref-url">NLP Preserves Philippine Heritage – PIA</span>
+                <a class="ref-link-btn" href="https://pia.gov.ph/news/how-the-nlp-preserves-centuries-old-philippine-heritage/" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+            </ul>
+          </div>
 
-          <h3>Filipino Culture Going Global</h3>
-          <ul>
-            <li>PBEd: Globalization, Migration, and Changes in Culture</li>
-            <li>Academia.edu: Effects of Globalization in Filipino Media</li>
-            <li>United Tribes: The Rise of Filipino Influencers</li>
-          </ul>
+          <div class="ref-group">
+            <h3>Filipino Culture Going Global</h3>
+            <ul class="ref-list">
+              <li>
+                <span class="ref-url">Globalization &amp; Filipino Culture – PBED</span>
+                <a class="ref-link-btn" href="https://pbed.ph/module/globalization-migration-and-changes-in-filipino-culture/" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+              <li>
+                <span class="ref-url">Globalization &amp; Filipino Media Culture – Academia.edu</span>
+                <a class="ref-link-btn" href="https://www.academia.edu/82346068/Effects_of_Globalization_as_shown_in_Filipino_Media_Culture" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+              <li>
+                <span class="ref-url">Rise of Filipino Influencers – United Tribes</span>
+                <a class="ref-link-btn" href="https://unitedtribes.com/blog/indepth-the-rise-of-filipino-influencers-on-social-media-92" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+            </ul>
+          </div>
 
-          <h3>How Digital Technology Changes Tradition</h3>
-          <ul>
-            <li>Filipina Wanderer: Digital Culture and Societal Changes</li>
-            <li>ACM Digital Library: Technology and Tradition Shifts</li>
-            <li>PIDS: PH Media Landscape Transformation</li>
-          </ul>
+          <div class="ref-group">
+            <h3>How Digital Technology Changes Tradition</h3>
+            <ul class="ref-list">
+              <li>
+                <span class="ref-url">Digital Culture &amp; Filipino Experience – Filipina Wanderer</span>
+                <a class="ref-link-btn" href="https://filipinawanderer.com/2023/05/27/digital-culture-and-societal-changes-unraveling-the-filipino-experience/" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+              <li>
+                <span class="ref-url">Digital Transformation &amp; Culture – ACM Digital Library</span>
+                <a class="ref-link-btn" href="https://dl.acm.org/doi/fullHtml/10.1145/3647782.3647799" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+              <li>
+                <span class="ref-url">PH Media Landscape – PIDS</span>
+                <a class="ref-link-btn" href="https://www.pids.gov.ph/details/news/press-releases/ph-media-landscape-faces-transformation-amid-digital-growth-and-connectivity-gaps" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+            </ul>
+          </div>
 
-          <h3>Positive Effects</h3>
-          <ul>
-            <li>World Bank: Harnessing Digital Technologies for Economic Recovery</li>
-            <li>ResearchGate: Technological Advancements on Political Society</li>
-            <li>OpenGov Asia: Social Impact of Digital Innovation</li>
-          </ul>
+          <div class="ref-group">
+            <h3>Positive Effects</h3>
+            <ul class="ref-list">
+              <li>
+                <span class="ref-url">Digital Technologies &amp; Pandemic Recovery – World Bank</span>
+                <a class="ref-link-btn" href="https://www.worldbank.org/en/news/press-release/2020/10/05/harnessing-digital-technologies-can-help-philippines-overcome-impact-of-pandemic-hasten-recovery" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+              <li>
+                <span class="ref-url">Tech Advancements &amp; Political Society – ResearchGate</span>
+                <a class="ref-link-btn" href="https://www.researchgate.net/publication/384450340_The_Impact_of_Technological_Advancements_on_the_Political_Society_of_the_Philippines_Future_Studies" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+              <li>
+                <span class="ref-url">Social Impact of Digital Innovation – OpenGovAsia</span>
+                <a class="ref-link-btn" href="https://archive.opengovasia.com/2023/09/12/social-impact-of-digital-innovation-in-the-philippines/" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+            </ul>
+          </div>
 
-          <h3>Negative Effects / Challenges</h3>
-          <ul>
-            <li>ResearchGate: Challenges of Digitalization in Education</li>
-            <li>ABS-CBN News: Why Social Media Harms Are Hard to Regulate</li>
-            <li>Catanduanes Tribune: The Filipino Identity in the Internet Age</li>
-            <li>EJournals.ph: Digitalization Dilemmas Article</li>
-          </ul>
+          <div class="ref-group">
+            <h3>Negative Effects / Challenges</h3>
+            <ul class="ref-list">
+              <li>
+                <span class="ref-url">Challenges of Digitalization in PH Education – ResearchGate</span>
+                <a class="ref-link-btn" href="https://www.researchgate.net/publication/387735571_Challenges_and_Dilemmas_of_Digitalization_in_Philippine_Education_A_Grassroots_Perspective" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+              <li>
+                <span class="ref-url">Why Social Media Harms Are Hard to Regulate – ABS-CBN</span>
+                <a class="ref-link-btn" href="https://www.abs-cbn.com/news/world/2026/8/28/why-social-media-harms-are-hard-to-regulate-1008" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+              <li>
+                <span class="ref-url">Filipino Identity in the Internet Age – Catanduanes Tribune</span>
+                <a class="ref-link-btn" href="https://www.google.com/amp/s/catanduanestribune.net/2025/09/26/the-filipino-identity-in-the-internet-age/amp/" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+              <li>
+                <span class="ref-url">Digitalization Challenges – eJournals PH</span>
+                <a class="ref-link-btn" href="https://www.ejournals.ph/article.php?id=28146" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+            </ul>
+          </div>
 
-          <h3>Case Studies</h3>
-          <ul>
-            <li>StuDocu: Sustaining Philippine Cultural Identity (JRMSU Case Study)</li>
-            <li>Frontiers in Sociology: Sociological Perspectives</li>
-            <li>ResearchGate: Traditional Filipino Games in a Digital World</li>
-          </ul>
+          <div class="ref-group">
+            <h3>Case Studies</h3>
+            <ul class="ref-list">
+              <li>
+                <span class="ref-url">Sustaining Philippine Cultural Identity – JRMSU Case Study</span>
+                <a class="ref-link-btn" href="https://www.studocu.com/ph/document/jose-rizal-memorial-state-university/culture-and-psychology/sustaining-philippine-cultural-identity-in-the-digital-age-jrmsu-case-study/160890949" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+              <li>
+                <span class="ref-url">Cultural Identity in the Digital Age – Frontiers in Sociology</span>
+                <a class="ref-link-btn" href="https://www.frontiersin.org/journals/sociology/articles/10.3389/fsoc.2026.1813600/full" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+              <li>
+                <span class="ref-url">Traditional Filipino Games in a Digital World – ResearchGate</span>
+                <a class="ref-link-btn" href="https://www.researchgate.net/publication/392147130_Traditional_Filipino_games_in_a_digital_world_Cultural_shifts_and_engagement_trends" target="_blank" rel="noopener">Link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </li>
+            </ul>
+          </div>
         </div>
       </section>
     </div>
